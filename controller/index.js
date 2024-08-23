@@ -7,17 +7,19 @@ class NotionAPI {
     }
   
     async fetchBlockChildren(blockId, nextCursor = null) {
-      const url = `${this.apiUrl}/${blockId}/children?page_size=250${nextCursor ? `&start_cursor=${nextCursor}` : ''}`;
-      const response = await fetch(url, {
-        method: 'GET',
-        headers: this.getHeaders(),
-      });
-  
-      if (!response.ok) {
-        throw new Error(`Erro ao acessar a API do Notion: ${response.statusText}`);
-      }
-  
-      return response.json();
+        try {
+           
+            const url = `${this.apiUrl}/${blockId}/children?page_size=250${nextCursor ? `&start_cursor=${nextCursor}` : ''}`;
+            const response = await fetch(url, {
+              method: 'GET',
+              headers: this.getHeaders(),
+            });
+
+            return response.json();
+        } catch (error) {
+            console.log(error)
+            throw new Error(`Erro ao acessar a API do Notion: ${error}`);
+        }
     }
 
   
@@ -37,13 +39,12 @@ class NotionAPI {
       this.notionApi = new NotionAPI()
     }
   
-    async processChild(child, parentId) {
+    processChild(child, parentId) {
       const childId = child.id;
   
       if (child.type === 'child_page') {
         this.addPage(childId, child.child_page.title);
         this.addNode(parentId, childId);
-        console.log(this.mainColumnId)
         if(this.mainColumnId){
             this.addNode(this.mainColumnId, childId)
         }
@@ -51,9 +52,11 @@ class NotionAPI {
 
       if(child.type==="column_list"){
         if(child.has_children && !!child.parent){
+            console.log(child)
             this.mainColumnId = child.parent?.page_id;
         }
       }
+
   
       if (child.type === 'paragraph') {
         this.processParagraph(child, parentId);
@@ -96,14 +99,15 @@ class NotionAPI {
     let nextCursor = null;
   
     while (hasMore) {
+        console.log("id",blockId)
       const data = await notionAPI.fetchBlockChildren(blockId, nextCursor);
       nextCursor = data.next_cursor;
       hasMore = data.has_more;
   
       const childPromises = data.results.map(async (child) => {
-        const childId = elementProcessor.processChild(child, parentId);         
+        const childId = elementProcessor.processChild(child, parentId);
         if (childId) {
-           await fetchBlockChildrenRecursively(childId, notionAPI, elementProcessor, childId);
+          return await fetchBlockChildrenRecursively(childId, notionAPI, elementProcessor, childId);
         }
       });
   
