@@ -1,0 +1,12 @@
+## GET ITEM DATAS
+GET http://localhost:3000/blocks/086d8ab816a840fd94892dbdbbca5472
+
+###
+GET http://localhost:3000/only/086d8ab816a840fd94892dbdbbca5472
+
+###
+GET http://localhost:3000/only/410938ee-8509-4264-a67d-310b44998d05
+
+
+###
+GET http://localhost:3000/only/b920dad6-897d-4919-8e4a-dd25a2fd7c9d

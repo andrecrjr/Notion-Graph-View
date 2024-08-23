@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notion Graph Visualization</title>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <style>
+    .node {
+      stroke: #fff;
+      stroke-width: 1.5px;
+    }
+
+    .link {
+      stroke: #999;
+      stroke-opacity: 0.6;
+    }
+  </style>
+</head>
+<body>
+  <h1>Notion Graph Visualization</h1>
+  <div id="graph"></div>
+
+  <script>
+    const blockId = '9f15dcd66e48461ba9bcefd76f4e645a'; // Substitua pelo ID inicial do bloco
+
+    async function fetchGraphData(blockId) {
+        try{
+
+            const response = await fetch(`http://localhost:3000/blocks/${blockId}`);
+            return response.json();
+        } catch(e){
+            console.error(e)
+        }
+    }
+
+    async function renderGraph() {
+      const data = [{"id":"5cb10bc6-6d78-4b63-a147-d765e6be7ec6","label":"Init Projects - Front-end","type":"page"},{"source":"b920dad6-897d-4919-8e4a-dd25a2fd7c9d","target":"5cb10bc6-6d78-4b63-a147-d765e6be7ec6","type":"node"},{"id":"027abef7-16f8-4ff7-8198-dd4bf80f82e9","label":"Typescript","type":"page"},{"source":"b920dad6-897d-4919-8e4a-dd25a2fd7c9d","target":"027abef7-16f8-4ff7-8198-dd4bf80f82e9","type":"node"},{"id":"7243447b-48e0-4765-aa76-c28a16088093","label":"Javascript","type":"page"},{"source":"b920dad6-897d-4919-8e4a-dd25a2fd7c9d","target":"7243447b-48e0-4765-aa76-c28a16088093","type":"node"},{"id":"72a3037a-5c8e-4dee-8c09-eda91106b24a","label":"WebComponents","type":"page"},{"source":"b920dad6-897d-4919-8e4a-dd25a2fd7c9d","target":"72a3037a-5c8e-4dee-8c09-eda91106b24a","type":"node"},{"id":"5d8dec5a-a29b-49d2-875f-a2993c240ddc","label":"Document Object Model","type":"page"},{"source":"b920dad6-897d-4919-8e4a-dd25a2fd7c9d","target":"5d8dec5a-a29b-49d2-875f-a2993c240ddc","type":"node"},{"id":"b1f81d3b-f5b6-496a-89ff-9c97890f0d57","label":"React","type":"page"},{"source":"b920dad6-897d-4919-8e4a-dd25a2fd7c9d","target":"b1f81d3b-f5b6-496a-89ff-9c97890f0d57","type":"node"},{"id":"608d45e5-ec55-4e42-adac-5beb8bca5388","label":"Next JS","type":"page"},{"source":"b920dad6-897d-4919-8e4a-dd25a2fd7c9d","target":"608d45e5-ec55-4e42-adac-5beb8bca5388","type":"node"},{"id":"54c862ba-1c54-4a2b-b9a4-74c3d1000c25","label":"NodeJS Environments","type":"page"},{"source":"b920dad6-897d-4919-8e4a-dd25a2fd7c9d","target":"54c862ba-1c54-4a2b-b9a4-74c3d1000c25","type":"node"},{"id":"9c7b8133-3a06-4555-83f0-48224783a6cc","label":"NestJS","type":"page"},{"source":"b920dad6-897d-4919-8e4a-dd25a2fd7c9d","target":"9c7b8133-3a06-4555-83f0-48224783a6cc","type":"node"},{"id":"597f6b10-c874-4c53-89a2-9c153ed275ae","label":"Husky - for commits!","type":"page"},{"source":"17a98f08-5dc2-4cfd-8e21-45f219634b7d","target":"597f6b10-c874-4c53-89a2-9c153ed275ae","type":"node"},{"id":"c08fb625-b850-4427-ad42-ebdc50fa3133","label":"Eslint / Prettier","type":"page"},{"source":"17a98f08-5dc2-4cfd-8e21-45f219634b7d","target":"c08fb625-b850-4427-ad42-ebdc50fa3133","type":"node"},{"id":"8519f617-5a4c-4b6d-8cd7-3596872bda1c","label":"Webpack","type":"page"},{"source":"17a98f08-5dc2-4cfd-8e21-45f219634b7d","target":"8519f617-5a4c-4b6d-8cd7-3596872bda1c","type":"node"},{"id":"093b49ba-7d39-49a7-ba55-6251c23e61c2","label":"NodeJS Back-end","type":"page"},{"source":"17a98f08-5dc2-4cfd-8e21-45f219634b7d","target":"093b49ba-7d39-49a7-ba55-6251c23e61c2","type":"node"},{"id":"c2c9f25c-2a1d-49ce-ba49-87a29e257c9d","label":"Monorepo em JS","type":"page"},{"source":"17a98f08-5dc2-4cfd-8e21-45f219634b7d","target":"c2c9f25c-2a1d-49ce-ba49-87a29e257c9d","type":"node"},{"id":"6e608e5e-59e2-47a9-979c-254febbf3d56","label":"Vantagens e Desvantagens","type":"page"},{"source":"7243447b-48e0-4765-aa76-c28a16088093","target":"6e608e5e-59e2-47a9-979c-254febbf3d56","type":"node"},{"id":"104d90c5-04df-4b96-b532-127a5ee88c99","label":"Javascript Architecture","type":"page"},{"source":"7243447b-48e0-4765-aa76-c28a16088093","target":"104d90c5-04df-4b96-b532-127a5ee88c99","type":"node"},{"id":"e46cdaeb-0da8-4fec-b31e-bba52543658a","label":"Dicas JS / Snippets","type":"page"},{"source":"7243447b-48e0-4765-aa76-c28a16088093","target":"e46cdaeb-0da8-4fec-b31e-bba52543658a","type":"node"},{"id":"c5433785-7cc3-4f19-bdec-6003a85de023","label":"Timers in JS","type":"page"},{"source":"7243447b-48e0-4765-aa76-c28a16088093","target":"c5433785-7cc3-4f19-bdec-6003a85de023","type":"node"},{"id":"87074413-9cda-48df-b775-0961bd1db905","label":"this, call, apply and bind","type":"page"},{"source":"7243447b-48e0-4765-aa76-c28a16088093","target":"87074413-9cda-48df-b775-0961bd1db905","type":"node"},{"id":"1c7911ab-102a-4386-85e8-976f8cb026a9","label":"Snippets","type":"page"},{"source":"7243447b-48e0-4765-aa76-c28a16088093","target":"1c7911ab-102a-4386-85e8-976f8cb026a9","type":"node"},{"id":"b4ae1406-295e-4800-9e7c-89ea0503092a","label":"Meta programação","type":"page"},{"source":"7243447b-48e0-4765-aa76-c28a16088093","target":"b4ae1406-295e-4800-9e7c-89ea0503092a","type":"node"},{"id":"b29306a5-d3d1-4252-ba20-759fbd422e5a","label":"CallStack Javascript","type":"page"},{"source":"104d90c5-04df-4b96-b532-127a5ee88c99","target":"b29306a5-d3d1-4252-ba20-759fbd422e5a","type":"node"},{"id":"1113c8f4-6d35-401b-a707-9d095450a31d","label":"Event Loop in JS","type":"page"},{"source":"104d90c5-04df-4b96-b532-127a5ee88c99","target":"1113c8f4-6d35-401b-a707-9d095450a31d","type":"node"},{"id":"a36a9010-0a1a-40f6-94ae-ec4327ee8287","label":"Next Auth","type":"page"},{"source":"608d45e5-ec55-4e42-adac-5beb8bca5388","target":"a36a9010-0a1a-40f6-94ae-ec4327ee8287","type":"node"},{"id":"b79f17f6-b846-45c8-9dc0-c90f10508908","label":"Next Auth User Data Flow","type":"page"},{"source":"a36a9010-0a1a-40f6-94ae-ec4327ee8287","target":"b79f17f6-b846-45c8-9dc0-c90f10508908","type":"node"},{"id":"5f760f96-5084-4d36-932b-9fad295eff9a","label":"Prettier","type":"page"},{"source":"b029ca7a-df7d-4fd7-8399-4b1a99187ef9","target":"5f760f96-5084-4d36-932b-9fad295eff9a","type":"node"},{"id":"ed583942-36d9-4660-bf24-e9bf380482cf","label":"Eslint","type":"page"},{"source":"19a87cfd-747e-47d4-a350-9d6472be1ff4","target":"ed583942-36d9-4660-bf24-e9bf380482cf","type":"node"},{"id":"94c34152-3663-4ed3-b3cb-85fdb345ef5c","label":"Composition Patterns in JSX","type":"page"},{"source":"b1f81d3b-f5b6-496a-89ff-9c97890f0d57","target":"94c34152-3663-4ed3-b3cb-85fdb345ef5c","type":"node"},{"id":"6bc8c851-ed09-4ee5-a3bf-95edd9b2d65d","label":"Recoil","type":"page"},{"source":"b1f81d3b-f5b6-496a-89ff-9c97890f0d57","target":"6bc8c851-ed09-4ee5-a3bf-95edd9b2d65d","type":"node"},{"id":"337de7d9-4f36-4398-9359-f9339d77c693","label":"React Memo","type":"page"},{"source":"b1f81d3b-f5b6-496a-89ff-9c97890f0d57","target":"337de7d9-4f36-4398-9359-f9339d77c693","type":"node"},{"id":"59285db1-b0c3-4e2a-b000-4c46e7d9d76d","label":"Libs para React","type":"page"},{"source":"b1f81d3b-f5b6-496a-89ff-9c97890f0d57","target":"59285db1-b0c3-4e2a-b000-4c46e7d9d76d","type":"node"}]
+      const nodes = data.filter(d => d.type === 'page').map(d => ({ id: d.id, label: d.label }));
+  
+      // Filtrar links para garantir que ambos os nós existam
+      const links = data.filter(d => d.type === 'node' && 
+        nodes.some(node => node.id === d.source) && 
+        nodes.some(node => node.id === d.target))
+        .map(d => ({ source: d.source, target: d.target }));
+    
+      const width = 900;
+      const height = 900;
+ // Criar o SVG onde o grafo será desenhado
+ const svg = d3.select("#graph")
+ .append("svg")
+ .attr("width", width)
+ .attr("height", height);
+
+// Configurar a simulação de força
+const simulation = d3.forceSimulation(nodes)
+ .force("link", d3.forceLink(links).id(d => d.id).distance(33))
+ .force("charge", d3.forceManyBody().strength(-60))
+ .force("center", d3.forceCenter(width / 3, height / 3));
+
+// Desenhar as linhas dos links
+const link = svg.append("g")
+ .attr("class", "links")
+ .selectAll("line")
+ .data(links)
+ .enter()
+ .append("line")
+ .attr("class", "link");
+
+// Desenhar os nós como círculos
+const node = svg.append("g")
+ .attr("class", "nodes")
+ .selectAll("circle")
+ .data(nodes)
+ .enter()
+ .append("circle")
+ .attr("class", "node")
+ .attr("r", 10)
+ .call(d3.drag()
+   .on("start", dragstarted)
+   .on("drag", dragged)
+   .on("end", dragended));
+
+// Adicionar rótulos de texto aos nós
+const labels = svg.append("g")
+ .attr("class", "labels")
+ .selectAll("text")
+ .data(nodes)
+ .enter()
+ .append("text")
+ .attr("class", "label")
+ .attr("text-anchor", "middle")
+ .attr("dy", -15) // Posiciona o texto acima do nó
+ .text(d => d.label);
+
+// Função de atualização chamada a cada tick da simulação
+simulation.on("tick", () => {
+ link
+   .attr("x1", d => d.source.x)
+   .attr("y1", d => d.source.y)
+   .attr("x2", d => d.target.x)
+   .attr("y2", d => d.target.y);
+
+ node
+   .attr("cx", d => d.x)
+   .attr("cy", d => d.y);
+
+ labels
+   .attr("x", d => d.x)
+   .attr("y", d => d.y);
+});
+
+// Funções de arrastar os nós
+function dragstarted(event, d) {
+ if (!event.active) simulation.alphaTarget(0.3).restart();
+ d.fx = d.x;
+ d.fy = d.y;
+}
+
+function dragged(event, d) {
+ d.fx = event.x;
+ d.fy = event.y;
+}
+
+function dragended(event, d) {
+ if (!event.active) simulation.alphaTarget(0);
+ d.fx = null;
+ d.fy = null;
+}
+}
+
+
+    renderGraph();
+  </script>
+</body>
+</html>
