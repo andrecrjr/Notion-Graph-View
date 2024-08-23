@@ -8,7 +8,6 @@ class NotionAPI {
   
     async fetchBlockChildren(blockId, nextCursor = null) {
         try {
-           
             const url = `${this.apiUrl}/${blockId}/children?page_size=250${nextCursor ? `&start_cursor=${nextCursor}` : ''}`;
             const response = await fetch(url, {
               method: 'GET',
@@ -52,7 +51,6 @@ class NotionAPI {
 
       if(child.type==="column_list"){
         if(child.has_children && !!child.parent){
-            console.log(child)
             this.mainColumnId = child.parent?.page_id;
         }
       }
@@ -99,7 +97,6 @@ class NotionAPI {
     let nextCursor = null;
   
     while (hasMore) {
-        console.log("id",blockId)
       const data = await notionAPI.fetchBlockChildren(blockId, nextCursor);
       nextCursor = data.next_cursor;
       hasMore = data.has_more;
