@@ -46,6 +46,10 @@ app.get("/only/:blockId", async(req, res)=>{
   }
 })
 
+app.get("/mock", (req, res)=>{
+  res.json(require("./mock.json"))
+})
+
 // Inicializa o servidor Express
 app.listen(PORT, () => {
   console.log(`Servidor rodando na porta ${PORT}`);

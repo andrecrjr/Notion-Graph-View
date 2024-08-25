@@ -8,7 +8,7 @@ class NotionAPI {
   
     async fetchBlockChildren(blockId, nextCursor = null) {
         try {
-            const url = `${this.apiUrl}/${blockId}/children?page_size=250${nextCursor ? `&start_cursor=${nextCursor}` : ''}`;
+            const url = `${this.apiUrl}/${blockId}/children?page_size=50${nextCursor ? `&start_cursor=${nextCursor}` : ''}`;
             const response = await fetch(url, {
               method: 'GET',
               headers: this.getHeaders(),
@@ -34,30 +34,44 @@ class NotionAPI {
   class ElementProcessor {
     constructor() {
       this.elements = [];
-      this.mainColumnId = ""
+      this.columnListTrack = []
+      this.inside_column = []
       this.notionApi = new NotionAPI()
     }
   
     processChild(child, parentId) {
       const childId = child.id;
   
-      if (child.type === 'child_page') {
-        this.addPage(childId, child.child_page.title);
-        this.addNode(parentId, childId);
-        if(this.mainColumnId){
-            this.addNode(this.mainColumnId, childId)
-        }
+      if(child.type==="column_list" && child.has_children){
+        
+        // pego o pai da lista coluna e salvo
+          this.columnListTrack.push({
+            father:child.parent?.page_id, 
+            column_list: childId
+          })
       }
 
-      if(child.type==="column_list"){
-        if(child.has_children && !!child.parent){
-            this.mainColumnId = child.parent?.page_id;
+      if(child.type==="column"){
+        // pego o pai da coluna pelo pai da column_list e salvo
+        const columnList = this.columnListTrack.find(item => item.column_list === child.parent?.block_id);
+
+        if(columnList){
+          this.inside_column.push({...columnList, id_column:childId})
         }
       }
-
   
       if (child.type === 'paragraph') {
         this.processParagraph(child, parentId);
+      }
+
+    if (child.type === 'child_page') {
+        this.addPage(childId, child.child_page.title);
+        this.addNode(parentId, childId);
+        const insideColumn = this.inside_column.find(item=> item.id_column === parentId)
+        if(insideColumn){
+          console.log("é dentro",insideColumn.father)
+          this.addNode(insideColumn?.father, childId)
+        }
       }
   
       return child.has_children ? childId : null;
