@@ -39,6 +39,7 @@ class ElementProcessor {
     this.elements = [];
     this.columnListTrack = [];
     this.insideColumn = [];
+    this.insideColumnToggle = [];
     this.toggleList = [];
     this.notionApi = new NotionAPI();
   }
@@ -85,16 +86,25 @@ class ElementProcessor {
 
   trackColumn(child) {
     const columnList = this.columnListTrack.find(item => item.columnList === child.parent?.block_id);
+    // is inside column list?
     if (columnList) {
+      // is inside a column?
       this.insideColumn.push({ ...columnList, idColumn: child.id });
     }
   }
 
   trackToggle(child) {
-    this.toggleList.push({
-      father: child.parent[child.parent.type],
-      idToggle: child.id,
-    });
+    const isInsideColumn = this.insideColumn.find(item => item.idColumn === child.parent[child.parent.type]);
+    if(isInsideColumn){
+      console.log("toggle dentro de coluna", child.id)
+      console.log(isInsideColumn)
+      this.insideColumnToggle.push({ ...isInsideColumn, idColumn: child.id })
+    }else{
+      this.toggleList.push({
+        father: child.parent[child.parent.type],
+        idToggle: child.id,
+      });
+    }
   }
 
   processParagraph(child, parentId) {
@@ -116,7 +126,12 @@ class ElementProcessor {
 
     const insideColumn = this.insideColumn.find(item => item.idColumn === parentId);
     const insideToggle = this.toggleList.find(item => item.idToggle === parentId);
+    const insideColumnToggle = this.insideColumnToggle.find(item => item.idColumn === parentId);
 
+    if(insideColumnToggle){
+      console.log("toggle father", insideColumnToggle.father)
+      this.addNode(insideColumnToggle.father, childId);
+    }
     if (insideColumn) {
       this.addNode(insideColumn.father, childId);
     }
