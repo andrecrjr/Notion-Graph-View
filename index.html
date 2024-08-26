@@ -13,12 +13,11 @@
       font-size: 16px;
     }
     .node {
-      stroke: #fff;
-      stroke-width: 1.5px;
+      fill:#fff;
     }
 
     .link {
-      stroke: #999;
+      stroke: #c1c1c1;
       stroke-opacity: 0.6;
     }
     .label{
@@ -31,13 +30,14 @@
   <div id="graph"></div>
 
   <script>
-    const blockId = '79952950f3c3403dbd983bf9294ad72c'; // Substitua pelo ID inicial do bloco
+    const blockId = '9a1db0177fac4402bdb3bc881aa6d0ad'; // Substitua pelo ID inicial do bloco
 
     async function fetchGraphData(blockId) {
         try{
-
-            const response = await fetch(`http://localhost:3000/blocks/${blockId}`);
-            return response.json();
+          const response = await fetch(`http://localhost:3000/mock`);
+          const data= response.json();
+          localStorage.setItem("graph-notion", JSON.stringify(data))
+          return data
         } catch(e){
             console.error(e)
         }
@@ -51,20 +51,20 @@
         nodes.some(node => node.id === d.source) && 
         nodes.some(node => node.id === d.target))
         .map(d => ({ source: d.source, target: d.target }));
-      const width = 900;
-      const height = 900;
+      const width = window.innerWidth;
+      const height = window.innerHeight - 50;
 
 
  // Criar o SVG onde o grafo será desenhado
  const svg = d3.select("#graph")
  .append("svg")
  .attr("width", window.innerWidth)
- .attr("height", height);
+ .attr("height", window.innerHeight - 50);
 
 // Configurar a simulação de força
 const simulation = d3.forceSimulation(nodes)
- .force("link", d3.forceLink(links).id(d => d.id).distance(300))
- .force("charge", d3.forceManyBody().strength(-100))
+ .force("link", d3.forceLink(links).id(d => d.id).distance(data.length/4))
+ .force("charge", d3.forceManyBody().strength(-(data.length / 3)))
  .force("center", d3.forceCenter(width / 2, height / 2));
 
 // Desenhar as linhas dos links
@@ -88,7 +88,7 @@ const node = svg.append("g")
   .attr("target", "_blank") // Abre o link em uma nova aba
   .append("circle")
   .attr("class", "node")
-  .attr("r", 10)
+  .attr("r", 5)
   .call(d3.drag()
     .on("start", dragstarted)
     .on("drag", dragged)
@@ -105,40 +105,40 @@ const labels = svg.append("g")
  .attr("dy", -15) // Posiciona o texto acima do nó
  .text(d => d.label);
 
-// Função de atualização chamada a cada tick da simulação
-simulation.on("tick", () => {
-  link
-    .attr("x1", d => d.source.x)
-    .attr("y1", d => d.source.y)
-    .attr("x2", d => d.target.x)
-    .attr("y2", d => d.target.y);
+  // Função de atualização chamada a cada tick da simulação
+  simulation.on("tick", () => {
+    link
+      .attr("x1", d => d.source.x)
+      .attr("y1", d => d.source.y)
+      .attr("x2", d => d.target.x)
+      .attr("y2", d => d.target.y);
 
-  node
-    .attr("cx", d => d.x = Math.max(10, Math.min(width, d.x))) // Limita a posição em X
-    .attr("cy", d => d.y = Math.max(10, Math.min(height, d.y))); // Limita a posição em Y
+    node
+      .attr("cx", d => d.x = Math.max(10, Math.min(width -10, d.x))) // Limita a posição em X
+      .attr("cy", d => d.y = Math.max(10, Math.min(height -10, d.y))); // Limita a posição em Y
 
-  labels
-    .attr("x", d => d.x)
-    .attr("y", d => d.y);
-});
+    labels
+      .attr("x", d => d.x)
+      .attr("y", d => d.y);
+  });
 
-// Funções de arrastar os nós
-function dragstarted(event, d) {
- if (!event.active) simulation.alphaTarget(0.3).restart();
- d.fx = d.x;
- d.fy = d.y;
-}
+    // Funções de arrastar os nós
+    function dragstarted(event, d) {
+    if (!event.active) simulation.alphaTarget(0.2).restart();
+    d.fx = d.x;
+    d.fy = d.y;
+    }
 
-function dragged(event, d) {
- d.fx = event.x;
- d.fy = event.y;
-}
+    function dragged(event, d) {
+    d.fx = event.x;
+    d.fy = event.y;
+    }
 
-function dragended(event, d) {
- if (!event.active) simulation.alphaTarget(0);
- d.fx = null;
- d.fy = null;
-}
+    function dragended(event, d) {
+    if (!event.active) simulation.alphaTarget(0);
+    d.fx = null;
+    d.fy = null;
+    }
 }
 
 
