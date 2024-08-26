@@ -6,6 +6,7 @@ class ElementHandler {
     this.processor.toggleList = [];
     this.processor.insideColumnToggle = [];
     this.processor.columnListTrack = [];
+    this.processor.numberedList = [];
   }
 
   handle(child, parentId) {

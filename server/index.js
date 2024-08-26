@@ -9,9 +9,8 @@ import mock from "../mock.json" with {type: "json"};
 
 dotenv.config();
 
-
 const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
-const __dirname = path.dirname(__filename); // get the name of the directory
+const __dirname = path.resolve(path.dirname(__filename), ".."); // get the name of the directory
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -37,7 +36,7 @@ app.get('/blocks/:blockId', async (req, res) => {
     res.json(elements);
   } catch (error) {
     console.error('Erro ao buscar filhos do bloco:', error);
-    res.status(500).json({ error: 'Erro ao buscar filhos do bloco' });
+    res.status(404).json({ error: 'Erro ao buscar filhos do bloco' });
   }
 });
 
@@ -50,7 +49,7 @@ app.get("/only/:blockId", async(req, res)=>{
     res.json(elements);
   } catch (error) {
     console.error('Erro ao buscar filhos do bloco:', error);
-    res.status(500).json({ error: 'Erro ao buscar filhos do bloco' });
+    res.status(404).json({ error: 'Erro ao buscar filhos do bloco' });
   }
 })
 
