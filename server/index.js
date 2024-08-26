@@ -5,7 +5,7 @@ import cors from 'cors';
 import ElementProcessor from './controller/ElementProcessor/index.js';
 import dotenv from 'dotenv';
 import { fileURLToPath } from 'url';
-import mock from "./mock.json" with {type: "json"};
+import mock from "../mock.json" with {type: "json"};
 
 dotenv.config();
 

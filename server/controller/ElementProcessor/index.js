@@ -1,5 +1,6 @@
 import { ChildPageHandler } from "./ChildPageHandler.js";
 import { ColumnHandler, ColumnListHandler } from "./ColumnHandler.js";
+import { NumberedList } from "./NumberedList.js";
 import { ParagraphHandler } from "./ParagraphHandler.js";
 import { ToggleHandler } from "./ToggleHandler.js";
 
@@ -14,6 +15,7 @@ class ElementProcessor {
     this.registerHandler('toggle', new ToggleHandler(this));
     this.registerHandler('paragraph', new ParagraphHandler(this));
     this.registerHandler('child_page', new ChildPageHandler(this));
+    this.registerHandler('numbered_list_item', new NumberedList(this));
   }
 
   registerHandler(type, handler) {

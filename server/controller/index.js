@@ -2,7 +2,6 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-
 class NotionAPI {
   constructor(apiUrl, apiKey) {
     this.apiUrl = apiUrl || process.env.API_URL;
@@ -36,9 +35,6 @@ class NotionAPI {
     };
   }
 }
-
-
-
   
   async function fetchBlockChildrenRecursively(blockId, notionAPI, elementProcessor, parentId = null) {
     let hasMore = true;
