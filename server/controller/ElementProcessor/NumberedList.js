@@ -2,6 +2,6 @@ import { ElementHandler } from "./ElementHandler.js";
 
 export class NumberedList extends ElementHandler{
     handle(child, parentId){
-        console.log(child)
+        console.log(child.numbered_list_item)
     }
 }

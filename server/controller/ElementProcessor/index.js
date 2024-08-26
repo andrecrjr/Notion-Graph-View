@@ -27,7 +27,6 @@ class ElementProcessor {
     if (handler) {
       handler.handle(child, parentId);
     }
-    console.log(child.type)
     return child.has_children ? child.id : null;
   }
 

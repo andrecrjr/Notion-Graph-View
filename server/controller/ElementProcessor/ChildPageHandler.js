@@ -5,7 +5,6 @@ export class ChildPageHandler extends ElementHandler {
     const childId = child.id;
     this.processor.addPage(childId, child.child_page.title);
     this.processor.addNode(parentId, childId);
-    console.log(this.processor.insideColumn)
 
     const insideColumn = this.processor.insideColumn.find(item => item.idColumn === parentId);
     const insideToggle = this.processor.toggleList.find(item => item.idToggle === parentId);
