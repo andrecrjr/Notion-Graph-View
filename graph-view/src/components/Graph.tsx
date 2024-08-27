@@ -1,6 +1,7 @@
 'use client'
 import React, { useEffect, useRef, useState } from "react";
 import * as d3 from "d3";
+import dataMock from "./mock.json";
 
 interface Node extends d3.SimulationNodeDatum {
   id: string;
@@ -24,8 +25,10 @@ export const GraphComponent: React.FC = () => {
   useEffect(() => {
     const fetchGraphData = async (blockId: string) => {
       try {
-        const response = await fetch(`http://localhost:3000/mock`);
-        const data = await response.json();
+        // const response = await fetch(`http://localhost:3000/mock`);
+        // const data = await response.json();
+        const data = dataMock;
+
 
         const nodes: Node[] = data
           .filter((d: any) => d.type === "page")
