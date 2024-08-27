@@ -71,8 +71,10 @@ export const GraphComponent: React.FC = () => {
 
     const simulation = d3.forceSimulation<Node>(data.nodes)
     .force("link", d3.forceLink<Node, Link>(data.links).id((d) => d.id).distance(data.nodes.length))
-    .force("charge", d3.forceManyBody().strength(-(100)))
-    .force("center", d3.forceCenter(window.innerWidth / 3, window.innerHeight / 3));
+    .force("charge", d3.forceManyBody().strength(-(200)))
+    .force("center", d3.forceCenter(width / 3, height / 3))
+    .force("collide", d3.forceCollide(5));
+
 
     const link = container.append("g")
       .attr("class", "links")
@@ -109,6 +111,11 @@ export const GraphComponent: React.FC = () => {
       .attr("text-anchor", "middle")
       .attr("dy", -15)
       .text(d => d.label);
+    
+    const initialX = (window.innerWidth / 2) - (width / 3);
+    const initialY = (window.innerHeight / 2) - (height / 3);
+
+    container.attr("transform", `translate(${initialX},${initialY})`);
 
     simulation.on("tick", () => {
       link
@@ -131,11 +138,9 @@ export const GraphComponent: React.FC = () => {
       saveNodePositions();
     });
 
-      // Zoom and Pan behavior with dynamic SVG resizing
     const zoomed = (event: d3.D3ZoomEvent<SVGSVGElement, unknown>) => {
       const { k, x, y } = event.transform;
       
-      // Dynamically adjust the SVG width and height as you pan
       const newWidth = Math.max(width, Math.abs(x) * 2);
       const newHeight = Math.max(height, Math.abs(y) * 2);
       console.log(newWidth)
@@ -145,11 +150,12 @@ export const GraphComponent: React.FC = () => {
     };
 
     const zoom = d3.zoom<SVGSVGElement, unknown>()
-      .scaleExtent([0.5, 5]) // Set the zoom scale extent
+      .scaleExtent([0.5, 5])
       .on("zoom", zoomed);
 
     svg.call(zoom);
-
+    svg.call(zoom.transform, d3.zoomIdentity.translate(initialX, initialY));
+ 
     function dragstarted(event: d3.D3DragEvent<SVGCircleElement, Node, Node>, d: Node) {
       if (!event.active) simulation.alphaTarget(0.2).restart();
       d.fx = d.x;
@@ -176,7 +182,7 @@ export const GraphComponent: React.FC = () => {
 
   const saveNodePositions = () => {
       const positions = data.nodes.reduce((acc, node) => {
-        acc[node.id] = { x: node.x, y: node.y };
+        acc[node.id] = { x: node.x||0, y: node.y||0 };
         return acc;
       }, {} as Record<string, { x: number | null, y: number | null }>);
 
