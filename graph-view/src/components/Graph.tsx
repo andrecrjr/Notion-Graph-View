@@ -19,6 +19,7 @@ export const GraphComponent: React.FC = () => {
     links: [],
   });
   const svgRef = useRef<SVGSVGElement | null>(null);
+  const [block, setBlock] = useState("0")
 
   useEffect(() => {
     const fetchGraphData = async (blockId: string) => {
@@ -38,7 +39,15 @@ export const GraphComponent: React.FC = () => {
               nodes.some((node: Node) => node.id === d.target)
           )
           .map((d: any) => ({ source: d.source, target: d.target }));
-
+        setBlock(blockId)
+         // Load node positions from localStorage
+        const savedPositions = JSON.parse(localStorage.getItem(`nodePositions-${blockId}`) || "{}");
+        nodes.forEach(node => {
+          if (savedPositions[node.id]) {
+            node.fx = savedPositions[node.id].x;
+            node.fy = savedPositions[node.id].y;
+          }
+        });
         setData({ nodes, links });
       } catch (e) {
         console.error(e);
@@ -51,8 +60,8 @@ export const GraphComponent: React.FC = () => {
   useEffect(() => {
     if (data.nodes.length === 0 || data.links.length === 0) return;
 
-    const width = window.innerWidth;
-    const height = window.innerHeight - 50;
+    const width = window.innerWidth * 1.5;
+    const height = window.innerHeight;
 
     const svg = d3.select(svgRef.current)
       .attr("width", width)
@@ -62,9 +71,9 @@ export const GraphComponent: React.FC = () => {
     const container = svg.append("g");
 
     const simulation = d3.forceSimulation<Node>(data.nodes)
-      .force("link", d3.forceLink<Link, Node>(data.links).id((d) => d.id).distance(data.nodes.length))
-      .force("charge", d3.forceManyBody().strength(-(data.nodes.length / 3)))
-      .force("center", d3.forceCenter(width / 2, height / 2));
+    .force("link", d3.forceLink<Node, Link>(data.links).id((d) => d.id).distance(data.nodes.length))
+    .force("charge", d3.forceManyBody().strength(-(200)))
+    .force("center", d3.forceCenter(window.innerWidth / 2, window.innerHeight / 2));
 
     const link = container.append("g")
       .attr("class", "links")
@@ -118,9 +127,22 @@ export const GraphComponent: React.FC = () => {
         .attr("y", d => (d as Node).y!);
     });
 
-    // Zoom and Pan behavior
+    simulation.on("end", () => {
+      console.log("Simulation ended, saving node positions...");
+      saveNodePositions();
+    });
+
+      // Zoom and Pan behavior with dynamic SVG resizing
     const zoomed = (event: d3.D3ZoomEvent<SVGSVGElement, unknown>) => {
-      container.attr("transform", event.transform);
+      const { k, x, y } = event.transform;
+      
+      // Dynamically adjust the SVG width and height as you pan
+      const newWidth = Math.max(width, Math.abs(x) * 2);
+      const newHeight = Math.max(height, Math.abs(y) * 2);
+      console.log(newWidth)
+      svg.attr("width", newWidth).attr("height", newHeight);
+
+      container.attr("transform", `translate(${x},${y}) scale(${k})`);
     };
 
     const zoom = d3.zoom<SVGSVGElement, unknown>()
@@ -140,10 +162,12 @@ export const GraphComponent: React.FC = () => {
       d.fy = event.y;
     }
 
-    function dragended(event: d3.D3DragEvent<SVGCircleElement, Node, Node>, d: Node) {
+     function dragended(event: d3.D3DragEvent<SVGCircleElement, Node, Node>, d: Node) {
       if (!event.active) simulation.alphaTarget(0);
-      d.fx = null;
-      d.fy = null;
+      d.fx = event.x;
+      d.fy = event.y;
+      // Save node positions in localStorage
+      saveNodePositions()
     }
 
     return () => {
@@ -151,9 +175,27 @@ export const GraphComponent: React.FC = () => {
     };
   }, [data]);
 
-  return <div id="graph">
+  const saveNodePositions = () => {
+      const positions = data.nodes.reduce((acc, node) => {
+        acc[node.id] = { x: node.x, y: node.y };
+        return acc;
+      }, {} as Record<string, { x: number | null, y: number | null }>);
+
+      localStorage.setItem(`nodePositions-${block}`, JSON.stringify(positions));
+    };
+
+    const clearNodePositions = () => {
+        if(localStorage.getItem(`nodePositions-${block}`)){
+            localStorage.removeItem(`nodePositions-${block}`);
+            window.location.reload()
+        }
+    };
+
+  return (<div className="graph overflow-hidden">
+    <button onClick={saveNodePositions} className="border-none bg-slate-500 border-r-2 fixed px-3">Salvar posição</button>
+    <button onClick={clearNodePositions} className="border-none bg-red-500 border-r-2 fixed right-0 px-3">Limpar posições</button>
     <svg ref={svgRef}></svg>
-  </div>;
+  </div>);
 };
 
 export default GraphComponent;
