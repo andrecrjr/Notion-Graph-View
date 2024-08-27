@@ -60,20 +60,19 @@ export const GraphComponent: React.FC = () => {
   useEffect(() => {
     if (data.nodes.length === 0 || data.links.length === 0) return;
 
-    const width = window.innerWidth * 1.5;
-    const height = window.innerHeight;
+    const width = window.innerWidth * 4;
+    const height = window.innerHeight * 4;
 
     const svg = d3.select(svgRef.current)
       .attr("width", width)
       .attr("height", height);
 
-    // Create a container group to apply zoom and pan transformations
     const container = svg.append("g");
 
     const simulation = d3.forceSimulation<Node>(data.nodes)
     .force("link", d3.forceLink<Node, Link>(data.links).id((d) => d.id).distance(data.nodes.length))
-    .force("charge", d3.forceManyBody().strength(-(200)))
-    .force("center", d3.forceCenter(window.innerWidth / 2, window.innerHeight / 2));
+    .force("charge", d3.forceManyBody().strength(-(100)))
+    .force("center", d3.forceCenter(window.innerWidth / 3, window.innerHeight / 3));
 
     const link = container.append("g")
       .attr("class", "links")
@@ -106,7 +105,7 @@ export const GraphComponent: React.FC = () => {
       .data(data.nodes)
       .enter()
       .append("text")
-       .attr("class", "label fill-gray-400 dark:fill-white")
+       .attr("class", "label fill-gray-400 dark:fill-yellow-300")
       .attr("text-anchor", "middle")
       .attr("dy", -15)
       .text(d => d.label);
@@ -167,7 +166,7 @@ export const GraphComponent: React.FC = () => {
       d.fx = event.x;
       d.fy = event.y;
       // Save node positions in localStorage
-      saveNodePositions()
+    //   saveNodePositions()
     }
 
     return () => {
@@ -191,7 +190,7 @@ export const GraphComponent: React.FC = () => {
         }
     };
 
-  return (<div className="graph overflow-hidden">
+  return (<div className="graph overflow-hidden w-screen">
     <button onClick={saveNodePositions} className="border-none bg-slate-500 border-r-2 fixed px-3">Salvar posição</button>
     <button onClick={clearNodePositions} className="border-none bg-red-500 border-r-2 fixed right-0 px-3">Limpar posições</button>
     <svg ref={svgRef}></svg>
