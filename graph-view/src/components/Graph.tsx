@@ -9,7 +9,7 @@ interface Node extends d3.SimulationNodeDatum {
 }
 
 interface Link {
-  id: string | number;
+  id?: string | number;
   source: string;
   target: string;
 }
@@ -146,7 +146,6 @@ export const GraphComponent: React.FC = () => {
       
       const newWidth = Math.max(width, Math.abs(x) * 2);
       const newHeight = Math.max(height, Math.abs(y) * 2);
-      console.log(newWidth)
       svg.attr("width", newWidth).attr("height", newHeight);
 
       container.attr("transform", `translate(${x},${y}) scale(${k})`);
@@ -155,9 +154,8 @@ export const GraphComponent: React.FC = () => {
     const zoom = d3.zoom<SVGSVGElement, unknown>()
       .scaleExtent([0.5, 5])
       .on("zoom", zoomed);
-
-    svg.call(zoom);
-    svg.call(zoom.transform, d3.zoomIdentity.translate(initialX, initialY));
+    //@ts-ignore
+    svg.call(zoom).call(zoom.transform, d3.zoomIdentity.translate(initialX, initialY));
  
     function dragstarted(event: d3.D3DragEvent<SVGCircleElement, Node, Node>, d: Node) {
       if (!event.active) simulation.alphaTarget(0.2).restart();

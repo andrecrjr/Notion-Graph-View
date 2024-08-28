@@ -1,11 +1,14 @@
+import { auth } from "@/components/Auth";
 import GraphComponent from "@/components/Graph";
-import Image from "next/image";
+import { getSession } from "next-auth/react";
 
-export default function Home() {
+export default async function Home() {
+  const data = await auth()
+  console.log(data)
   return (
     <main className="h-screen overflow-hidden">
       <h1 className="absolute">Graph View</h1>
-      <GraphComponent />
+      {/* <GraphComponent /> */}
     </main>
   );
 }
