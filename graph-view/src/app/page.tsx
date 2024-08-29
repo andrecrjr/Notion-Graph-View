@@ -1,5 +1,7 @@
 import { auth } from "@/components/Auth";
 import SearchInput from "@/components/SearchInput";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default async function Home() {
   const data = await auth()
@@ -10,7 +12,7 @@ export default async function Home() {
       <p>A graph way to see your pages!</p>
       { !!data && <SearchInput /> }
       <section>
-      <button >Demo</button>
+      <Link href="/graph/mock"><Button className="mx-auto block">Demo</Button></Link>
       </section>
     </main>
   );

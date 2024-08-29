@@ -110,7 +110,7 @@ export const GraphComponent: React.FC = (props) => {
       .attr("target", "_blank")
       .append("circle")
       .attr("class", "node fill-blue-500 dark:fill-blue-300 hover:fill-blue-700 dark:hover:fill-blue-500 cursor-pointer")
-      .attr("r", 5)
+      .attr("r", 7)
       .call(
         d3.drag<SVGCircleElement, Node>()
           .on("start", dragstarted)
