@@ -10,7 +10,7 @@ class NotionAPI {
 
   async fetchBlockChildren(blockId, nextCursor = null) {
     try {
-      const url = `${this.apiUrl}/blocks/${blockId}/children?page_size=50${nextCursor ? `&start_cursor=${nextCursor}` : ''}`;
+      const url = `${this.apiUrl}/blocks/${blockId}/children?page_size=100${nextCursor ? `&start_cursor=${nextCursor}` : ''}`;
       const response = await fetch(url, {
         method: 'GET',
         headers: this.getHeaders(),
@@ -29,6 +29,7 @@ class NotionAPI {
 
   async fetchSearch(secret, query){
     try {
+      console.log(query)
       let options = {
         method: 'POST',
         headers: {

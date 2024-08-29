@@ -1,22 +1,31 @@
+'use client'
 import { useState, useEffect, useRef, KeyboardEvent } from "react"
 import { Search } from "lucide-react"
 import { Input } from "@/components/ui/input"
-
-// Simulated async function to fetch search results
-const fetchSearchResults = async (query: string): Promise<string[]> => {
-  await new Promise(resolve => setTimeout(resolve, 300)) // Simulate API delay
-  return [
-    `Result for ${query} 1`,
-    `Result for ${query} 2`,
-    `Result for ${query} 3`,
-    `Result for ${query} 4`,
-    `Result for ${query} 5`,
-  ].filter(result => result.toLowerCase().includes(query.toLowerCase()))
+import { useSession } from "next-auth/react"
+import { SearchRoot } from "./search"
+type ResultSearch = {id:string, name:string};
+const fetchSearchResults = async (query: string, token:string) => {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_API}/search`, {
+    method: 'POST',
+    body:JSON.stringify({query}),
+    headers: {
+      "Authorization": `Bearer ${token}`,
+      "Content-Type": "application/json"
+    }
+  })
+  const data = await res.json() as SearchRoot
+  const result = data?.results.map(item=>({id:item.id, name: item.properties['title']?.title[0].plain_text})).filter(item=>item.name)
+  console.log(result)
+  return result;
 }
 
-export default function Component() {
+
+
+export default function SearchInput() {
+  const {data} = useSession();
   const [inputValue, setInputValue] = useState("")
-  const [results, setResults] = useState<string[]>([])
+  const [results, setResults] = useState<ResultSearch[]>([])
   const [isLoading, setIsLoading] = useState(false)
   const [selectedIndex, setSelectedIndex] = useState(-1)
   const [showResults, setShowResults] = useState(false)
@@ -25,9 +34,10 @@ export default function Component() {
 
   useEffect(() => {
     const debounceTimer = setTimeout(async () => {
+
       if (inputValue) {
         setIsLoading(true)
-        const searchResults = await fetchSearchResults(inputValue)
+        const searchResults = await fetchSearchResults(inputValue, data?.user?.tokens.access_token)
         setResults(searchResults)
         setIsLoading(false)
         setShowResults(true)
@@ -38,7 +48,7 @@ export default function Component() {
     }, 300)
 
     return () => clearTimeout(debounceTimer)
-  }, [inputValue])
+  }, [inputValue, data])
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value)
@@ -53,17 +63,18 @@ export default function Component() {
       e.preventDefault()
       setSelectedIndex(prev => (prev > 0 ? prev - 1 : -1))
     } else if (e.key === "Enter" && selectedIndex > -1) {
-      setInputValue(results[selectedIndex])
+      setInputValue(results[selectedIndex].name)
       setShowResults(false)
     } else if (e.key === "Escape") {
       setShowResults(false)
     }
   }
 
-  const handleResultClick = (result: string) => {
-    setInputValue(result)
+  const handleResultClick = (result: ResultSearch) => {
+    setInputValue(result.name)
     setShowResults(false)
-    inputRef.current?.focus()
+    // inputRef.current?.focus()
+    
   }
 
   useEffect(() => {
@@ -97,20 +108,20 @@ export default function Component() {
             <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-gray-900 dark:border-white"></div>
           </div>
         )}
-        {showResults && results.length > 0 && (
+        {showResults && (
           <ul
             ref={resultsRef}
             className="absolute z-10 w-full mt-1 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md shadow-lg max-h-60 overflow-auto"
           >
             {results.map((result, index) => (
               <li
-                key={index}
+                key={result.id}
                 onClick={() => handleResultClick(result)}
                 className={`px-4 py-2 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 ${
                   index === selectedIndex ? "bg-gray-100 dark:bg-gray-700" : ""
                 }`}
               >
-                {result}
+                {result.name}
               </li>
             ))}
           </ul>

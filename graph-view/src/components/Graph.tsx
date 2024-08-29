@@ -63,8 +63,8 @@ export const GraphComponent: React.FC = () => {
   useEffect(() => {
     if (data.nodes.length === 0 || data.links.length === 0) return;
 
-    const width = window.innerWidth * 4;
-    const height = window.innerHeight * 4;
+    const width = window.innerWidth * 5;
+    const height = window.innerHeight * 5;
 
     const svg = d3.select(svgRef.current)
       .attr("width", width)

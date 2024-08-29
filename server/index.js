@@ -58,6 +58,7 @@ app.get("/only/:blockId", async(req, res)=>{
 app.post("/search", async (req, res)=>{
    try {
     const notionAPI = new NotionAPI(API_URL, NOTION_API_KEY);
+    console.log(req.body)
     const elements = await notionAPI.fetchSearch(req.headers.authorization, req.body.query);
     res.json(elements);
   } catch (error) {
