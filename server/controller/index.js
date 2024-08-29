@@ -10,7 +10,7 @@ class NotionAPI {
 
   async fetchBlockChildren(blockId, nextCursor = null) {
     try {
-      const url = `${this.apiUrl}/${blockId}/children?page_size=50${nextCursor ? `&start_cursor=${nextCursor}` : ''}`;
+      const url = `${this.apiUrl}/blocks/${blockId}/children?page_size=50${nextCursor ? `&start_cursor=${nextCursor}` : ''}`;
       const response = await fetch(url, {
         method: 'GET',
         headers: this.getHeaders(),
@@ -24,6 +24,25 @@ class NotionAPI {
     } catch (error) {
       console.error('Error accessing the Notion API:', error);
       throw new Error(`Error accessing the Notion API: ${error.message}`);
+    }
+  }
+
+  async fetchSearch(secret, query){
+    try {
+      let options = {
+        method: 'POST',
+        headers: {
+          ...this.getHeaders(),
+          Authorization: `${secret}`,
+        },
+        body: `{"query":"${query}","filter":{"value":"page","property":"object"},"sort":{"direction":"ascending","timestamp":"last_edited_time"}}`
+      };
+      const res = await fetch(`${this.apiUrl}/search`, options)
+      const data = await res.json()
+      return data;
+    } catch (error) {
+      console.log(error);
+      throw new Error("Error to find pages in query")
     }
   }
 

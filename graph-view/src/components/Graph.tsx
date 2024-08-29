@@ -197,7 +197,7 @@ export const GraphComponent: React.FC = () => {
         }
     };
 
-  return (<div className="graph overflow-hidden w-screen">
+  return (<div className="graph overflow-hidden max-w-screen">
     <button onClick={saveNodePositions} className="border-none bg-slate-500 border-r-2 fixed px-3">Salvar posição</button>
     <button onClick={clearNodePositions} className="border-none bg-red-500 border-r-2 fixed right-0 px-3">Limpar posições</button>
     <svg ref={svgRef}></svg>

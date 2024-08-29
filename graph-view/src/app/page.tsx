@@ -1,14 +1,18 @@
 import { auth } from "@/components/Auth";
 import GraphComponent from "@/components/Graph";
-import { getSession } from "next-auth/react";
+import { UserSession } from "@/components/UserSession";
 
 export default async function Home() {
   const data = await auth()
-  console.log(data)
+  
   return (
     <main className="h-screen overflow-hidden">
-      <h1 className="absolute">Graph View</h1>
-      {/* <GraphComponent /> */}
+      <h1>Graph View for Notion</h1>
+      <p>A graph way to see your pages!</p>
+      { !data ? <SearchInput /> : <LoginWithNotion />}
+      <section>
+      <button>Demo</button>
+      </section>
     </main>
   );
 }

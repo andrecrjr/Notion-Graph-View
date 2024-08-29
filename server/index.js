@@ -13,7 +13,8 @@ const __filename = fileURLToPath(import.meta.url); // get the resolved path to t
 const __dirname = path.resolve(path.dirname(__filename), ".."); // get the name of the directory
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
+app.use(express.json());
 app.use(cors())
 
 const NOTION_API_KEY = process.env.NOTION_API_KEY
@@ -46,6 +47,18 @@ app.get("/only/:blockId", async(req, res)=>{
   try {
     const notionAPI = new NotionAPI(API_URL, NOTION_API_KEY);
     const elements = await notionAPI.fetchBlockChildren(blockId);
+    res.json(elements);
+  } catch (error) {
+    console.error('Erro ao buscar filhos do bloco:', error);
+    res.status(404).json({ error: 'Erro ao buscar filhos do bloco' });
+  }
+})
+
+
+app.post("/search", async (req, res)=>{
+   try {
+    const notionAPI = new NotionAPI(API_URL, NOTION_API_KEY);
+    const elements = await notionAPI.fetchSearch(req.headers.authorization, req.body.query);
     res.json(elements);
   } catch (error) {
     console.error('Erro ao buscar filhos do bloco:', error);
