@@ -22,14 +22,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
          },
         async session({session, token, user}) {
             const userData = token.user;   
-            console.log(userData)
-            //  if(userData && typeof userData === 'object' && 'tokens' in userData){
-
-              // const data = await fetchAllNotionPages(userData?.tokens?.access_token, "Development")
-              // console.log(data)
-            // }
-            session.user = userData as any
-            
+            session.user = userData as any            
             return session;
         },
     },

@@ -1,7 +1,5 @@
 import { auth } from "@/components/Auth";
-import GraphComponent from "@/components/Graph";
 import SearchInput from "@/components/SearchInput";
-import { UserSession } from "@/components/UserSession";
 
 export default async function Home() {
   const data = await auth()
@@ -12,7 +10,7 @@ export default async function Home() {
       <p>A graph way to see your pages!</p>
       { !!data && <SearchInput /> }
       <section>
-      <button>Demo</button>
+      <button >Demo</button>
       </section>
     </main>
   );

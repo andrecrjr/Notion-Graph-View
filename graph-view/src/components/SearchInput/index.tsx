@@ -4,6 +4,7 @@ import { Search } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { useSession } from "next-auth/react"
 import { SearchRoot } from "./search"
+import { useRouter } from "next/navigation"
 type ResultSearch = {id:string, name:string};
 const fetchSearchResults = async (query: string, token:string) => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_API}/search`, {
@@ -24,6 +25,7 @@ const fetchSearchResults = async (query: string, token:string) => {
 
 export default function SearchInput() {
   const {data} = useSession();
+  const router = useRouter()
   const [inputValue, setInputValue] = useState("")
   const [results, setResults] = useState<ResultSearch[]>([])
   const [isLoading, setIsLoading] = useState(false)
@@ -37,6 +39,7 @@ export default function SearchInput() {
 
       if (inputValue) {
         setIsLoading(true)
+        //@ts-ignore
         const searchResults = await fetchSearchResults(inputValue, data?.user?.tokens.access_token)
         setResults(searchResults)
         setIsLoading(false)
@@ -73,8 +76,7 @@ export default function SearchInput() {
   const handleResultClick = (result: ResultSearch) => {
     setInputValue(result.name)
     setShowResults(false)
-    // inputRef.current?.focus()
-    
+    router.push(`/graph/${result.id}`)    
   }
 
   useEffect(() => {

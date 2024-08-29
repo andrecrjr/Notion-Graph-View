@@ -2,6 +2,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import * as d3 from "d3";
 import dataMock from "./mock.json";
+import { useParams, useRouter } from "next/navigation";
 
 interface Node extends d3.SimulationNodeDatum {
   id: string;
@@ -14,7 +15,13 @@ interface Link {
   target: string;
 }
 
-export const GraphComponent: React.FC = () => {
+export const GraphComponent: React.FC = (props) => {
+  const {id: pageId} = useParams()
+  const router = useRouter()
+  console.log(pageId)
+  if(!pageId){
+    router.push("/")
+  }
   const [data, setData] = useState<{ nodes: Node[]; links: Link[] }>({
     nodes: [],
     links: [],
@@ -25,11 +32,18 @@ export const GraphComponent: React.FC = () => {
   useEffect(() => {
     const fetchGraphData = async (blockId: string) => {
       try {
-        // const response = await fetch(`http://localhost:3000/mock`);
-        // const data = await response.json();
-        const data = dataMock;
-
-
+        let data;
+        if(blockId === "mock"){
+          data = dataMock;
+        }else{
+          if(!localStorage.getItem(`data-block-${pageId}`)){
+            const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_API}/blocks/${pageId}`);
+            data = await response.json();
+            localStorage.setItem(`data-block-${pageId}`, JSON.stringify(data))
+          }else{
+            data = JSON.parse(localStorage.getItem(`data-block-${pageId}`) as string)
+          }
+        }
         const nodes: Node[] = data
           .filter((d: any) => d.type === "page")
           .map((d: any) => ({ id: d.id, label: d.label }));
@@ -57,7 +71,7 @@ export const GraphComponent: React.FC = () => {
       }
     };
 
-    fetchGraphData('9a1db0177fac4402bdb3bc881aa6d0ad');
+    fetchGraphData(pageId as string);
   }, []);
 
   useEffect(() => {
@@ -92,7 +106,7 @@ export const GraphComponent: React.FC = () => {
       .data(data.nodes)
       .enter()
       .append("a")
-      .attr("xlink:href", d => `https://notion.so/eroshi/${d.id.replaceAll("-", "")}`)
+      .attr("xlink:href", d => `https://notion.so/${d.id.replaceAll("-", "")}`)
       .attr("target", "_blank")
       .append("circle")
       .attr("class", "node fill-blue-500 dark:fill-blue-300 hover:fill-blue-700 dark:hover:fill-blue-500 cursor-pointer")
