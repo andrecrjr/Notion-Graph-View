@@ -65,5 +65,8 @@
   }
   body {
     @apply bg-background text-foreground;
+    &[data-layout=graph]{
+      @apply overflow-hidden;
+    }
   }
 }
