@@ -1,7 +1,7 @@
 'use client'
 import React, { useEffect, useRef, useState } from "react";
 import * as d3 from "d3";
-import dataMock from "./mock.json";
+import dataMock from "../mock.json";
 import { useParams, useRouter } from "next/navigation";
 
 interface Node extends d3.SimulationNodeDatum {
@@ -75,11 +75,11 @@ export const GraphComponent: React.FC = (props) => {
   }, []);
 
   useEffect(() => {
-    if (data.nodes.length === 0 || data.links.length === 0) return;
+    if (data.nodes.length === 0 || data.links.length === 0 || svgRef.current == null) return;
 
     const width = window.innerWidth * 5;
     const height = window.innerHeight * 5;
-
+    
     const svg = d3.select(svgRef.current)
       .attr("width", width)
       .attr("height", height);

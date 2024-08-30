@@ -1,11 +1,8 @@
 import GraphComponent from "@/components/Graph";
 import React from "react";
 
-type Props = {};
-
-const GraphPage = (props: Props) => {
+const GraphPage = () => {
   return (<div className="overflow-hidden max-w-screen">
-          <h1 className="absolute">Graph View</h1>
           <GraphComponent />
       </div>);
 };

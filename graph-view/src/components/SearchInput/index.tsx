@@ -99,7 +99,7 @@ export default function SearchInput() {
         <Input
           ref={inputRef}
           type="text"
-          placeholder="Search..."
+          placeholder="Search by your Notion pages..."
           value={inputValue}
           onChange={handleInputChange}
           onKeyDown={handleKeyDown}
