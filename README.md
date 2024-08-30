@@ -1,52 +1,49 @@
 # Notion Graph Visualization
 
-Este projeto NodeJS e D3.js para criar visualizações interativas de grafos baseados em dados da plataforma Notion. As visualizações representam páginas e suas conexões, permitindo uma navegação visual e interativa.
+This NodeJS and D3.js project creates interactive graph visualizations based on data from the Notion platform. The visualizations represent pages and their connections, allowing for visual and interactive navigation.
 
-## Funcionalidades
+## Features
 
-- **Visualização Interativa de Grafos**: Mostra grafos dinâmicos com dados das páginas do Notion.
-- **Interação com Nós**: Permite arrastar e soltar nós, com ajuste automático dos links.
-- **Links Diretos para Páginas**: Cada nó é um hyperlink que abre a página correspondente no Notion em nova aba.
+- **Interactive Graph Visualization**: Displays dynamic graphs with data from Notion pages.
+- **Node Interaction**: Allows dragging and dropping nodes, with automatic link adjustment.
+- **Direct Links to Pages**: Each node is a hyperlink that opens the corresponding Notion page in a new tab.
 
-## Tecnologias Utilizadas
+## Technologies Used
 
-- **D3.js**: Usado para a renderização e manipulação dos gráficos.
-- **Express.js**: Framework de back-end usado para criar a API que interage com o Notion.
-- **Notion API**: Usada para obter dados das páginas e blocos.
+- **D3.js**: Used for rendering and manipulating the graphs.
+- **Express.js**: Backend framework used to create the API that interacts with Notion.
+- **Notion API**: Used to fetch data from pages and blocks.
 
-## Configuração do Projeto
+## Project Setup
 
-### Pré-requisitos
+### Prerequisites
 
 - Node.js
-- PNPM, NPM ou Yarn
-- Conta no Notion com acesso à API de Integração
+- PNPM, NPM, or Yarn
+- Notion account with API integration access
 
-### Instalação
+* Enable integration for Notion pages: Ensure your Notion page has the necessary permissions for the integration.
 
-1. Clone o repositório:
+### Installation
+
+1. Clone the repository:
    ```bash
-   git clone [URL_DO_REPOSITÓRIO]
-   cd [NOME_DO_REPOSITÓRIO]
+   git clone [REPOSITORY_URL]
+   cd [REPOSITORY_NAME]
    ```
 
-2. Instale as dependências:
-
-    ```bash
-    npm install
+2. Install the dependencies:
+    ``` bash 
+        npm install
     ```
-3. Configure as variáveis de ambiente:
 
-    Crie um arquivo .env na raiz do projeto com as seguintes variáveis:
-
-    ```bash
+3. Configure the environment variables: Create a .env file in the root of the project with the following variables:
+    ```
     PORT=3000
-    NOTION_API_KEY=SUA_CHAVE_DE_API_DO_NOTION
-    API_URL=URL_DA_API_DO_NOTION
+    NOTION_API_KEY=YOUR_NOTION_API_KEY
+    API_URL=YOUR_NOTION_API_URL
     ```
 
-4. Liberar a integração para as páginas do Notion
-    Sua página no Notion precisa de 
 
 ### Troubleshooting
-* Não funciona 100% com multi-colunas, mas é funcional para lista de páginas no geral.
+Does not fully support multi-column layouts but works well for a general list of pages.
