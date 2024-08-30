@@ -5,7 +5,7 @@ import { useParams, useRouter } from "next/navigation";
 import { useFetchGraphData } from "../hooks/useFetchGraphData";
 import { clearNodePositions, saveNodePositions } from "../utils/graph";
 
-export const GraphComponent: React.FC = (props) => {
+export const GraphComponent: React.FC = () => {
   const {id: pageId} = useParams()
   const pageUID = pageId as string
   const router = useRouter()
@@ -25,7 +25,7 @@ export const GraphComponent: React.FC = (props) => {
     if (graphData) {
       setData(graphData);
     }
-  }, [graphData,pageUID]);
+  }, [graphData, pageUID]);
 
   useEffect(() => {
     if (data.nodes.length === 0 || data.links.length === 0 || svgRef.current == null) return;
@@ -141,7 +141,7 @@ export const GraphComponent: React.FC = (props) => {
       d.fx = event.x;
       d.fy = event.y;
       // Save node positions in localStorage
-    //   saveNodePositions()
+      saveNodePositions(data, pageUID)
     }
 
     return () => {
