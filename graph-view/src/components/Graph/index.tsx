@@ -1,24 +1,15 @@
 'use client'
 import React, { useEffect, useRef, useState } from "react";
 import * as d3 from "d3";
-import dataMock from "../mock.json";
 import { useParams, useRouter } from "next/navigation";
-
-interface Node extends d3.SimulationNodeDatum {
-  id: string;
-  label: string;
-}
-
-interface Link {
-  id?: string | number;
-  source: string;
-  target: string;
-}
+import { useFetchGraphData } from "../hooks/useFetchGraphData";
+import { clearNodePositions, saveNodePositions } from "../utils/graph";
 
 export const GraphComponent: React.FC = (props) => {
   const {id: pageId} = useParams()
+  const pageUID = pageId as string
   const router = useRouter()
-  console.log(pageId)
+
   if(!pageId){
     router.push("/")
   }
@@ -27,52 +18,14 @@ export const GraphComponent: React.FC = (props) => {
     links: [],
   });
   const svgRef = useRef<SVGSVGElement | null>(null);
-  const [block, setBlock] = useState("0")
+
+  const graphData = useFetchGraphData(pageUID);
 
   useEffect(() => {
-    const fetchGraphData = async (blockId: string) => {
-      try {
-        let data;
-        if(blockId === "mock"){
-          data = dataMock;
-        }else{
-          if(!localStorage.getItem(`data-block-${pageId}`)){
-            const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_API}/blocks/${pageId}`);
-            data = await response.json();
-            localStorage.setItem(`data-block-${pageId}`, JSON.stringify(data))
-          }else{
-            data = JSON.parse(localStorage.getItem(`data-block-${pageId}`) as string)
-          }
-        }
-        const nodes: Node[] = data
-          .filter((d: any) => d.type === "page")
-          .map((d: any) => ({ id: d.id, label: d.label }));
-
-        const links: Link[] = data
-          .filter(
-            (d: any) =>
-              d.type === "node" &&
-              nodes.some((node: Node) => node.id === d.source) &&
-              nodes.some((node: Node) => node.id === d.target)
-          )
-          .map((d: any) => ({ source: d.source, target: d.target }));
-        setBlock(blockId)
-         // Load node positions from localStorage
-        const savedPositions = JSON.parse(localStorage.getItem(`nodePositions-${blockId}`) || "{}");
-        nodes.forEach(node => {
-          if (savedPositions[node.id]) {
-            node.fx = savedPositions[node.id].x;
-            node.fy = savedPositions[node.id].y;
-          }
-        });
-        setData({ nodes, links });
-      } catch (e) {
-        console.error(e);
-      }
-    };
-
-    fetchGraphData(pageId as string);
-  }, []);
+    if (graphData) {
+      setData(graphData);
+    }
+  }, [graphData,pageUID]);
 
   useEffect(() => {
     if (data.nodes.length === 0 || data.links.length === 0 || svgRef.current == null) return;
@@ -80,6 +33,7 @@ export const GraphComponent: React.FC = (props) => {
     const width = window.innerWidth * 5;
     const height = window.innerHeight * 5;
     
+    //@ts-ignore
     const svg = d3.select(svgRef.current)
       .attr("width", width)
       .attr("height", height);
@@ -152,10 +106,10 @@ export const GraphComponent: React.FC = (props) => {
 
     simulation.on("end", () => {
       console.log("Simulation ended, saving node positions...");
-      saveNodePositions();
+      saveNodePositions(data, pageUID);
     });
 
-    const zoomed = (event: d3.D3ZoomEvent<SVGSVGElement, unknown>) => {
+    const zoomed = (event: d3.D3ZoomEvent<Element, unknown>) => {
       const { k, x, y } = event.transform;
       
       const newWidth = Math.max(width, Math.abs(x) * 2);
@@ -165,7 +119,7 @@ export const GraphComponent: React.FC = (props) => {
       container.attr("transform", `translate(${x},${y}) scale(${k})`);
     };
 
-    const zoom = d3.zoom<SVGSVGElement, unknown>()
+    const zoom = d3.zoom<Element, unknown>()
       .scaleExtent([0.5, 5])
       .on("zoom", zoomed);
     //@ts-ignore
@@ -195,25 +149,10 @@ export const GraphComponent: React.FC = (props) => {
     };
   }, [data]);
 
-  const saveNodePositions = () => {
-      const positions = data.nodes.reduce((acc, node) => {
-        acc[node.id] = { x: node.x||0, y: node.y||0 };
-        return acc;
-      }, {} as Record<string, { x: number | null, y: number | null }>);
-
-      localStorage.setItem(`nodePositions-${block}`, JSON.stringify(positions));
-    };
-
-    const clearNodePositions = () => {
-        if(localStorage.getItem(`nodePositions-${block}`)){
-            localStorage.removeItem(`nodePositions-${block}`);
-            window.location.reload()
-        }
-    };
 
   return (<div className="graph overflow-hidden max-w-screen">
-    <button onClick={saveNodePositions} className="border-none bg-slate-500 border-r-2 fixed px-3">Salvar posição</button>
-    <button onClick={clearNodePositions} className="border-none bg-red-500 border-r-2 fixed right-0 px-3">Limpar posições</button>
+    <button onClick={()=>saveNodePositions(data, pageUID)} className="border-none bg-slate-500 border-r-2 fixed px-3">Salvar posição</button>
+    <button onClick={()=>clearNodePositions(pageUID)} className="border-none bg-red-500 border-r-2 fixed right-0 px-3">Limpar posições</button>
     <svg ref={svgRef}></svg>
   </div>);
 };
