@@ -5,7 +5,7 @@ dotenv.config();
 class NotionAPI {
   constructor(apiUrl, apiKey) {
     this.apiUrl = apiUrl || process.env.API_URL;
-    this.apiKey = apiKey || process.env.NOTION_API_KEY;
+    this.apiKey = apiKey;
   }
 
   async fetchBlockChildren(blockId, nextCursor = null) {
@@ -32,8 +32,7 @@ class NotionAPI {
       let options = {
         method: 'POST',
         headers: {
-          ...this.getHeaders(),
-          Authorization: `${secret}`,
+            ...this.getHeaders(),
         },
         body: `{"query":"${query}","filter":{"value":"page","property":"object"},"sort":{"direction":"ascending","timestamp":"last_edited_time"}}`
       };
@@ -48,7 +47,7 @@ class NotionAPI {
 
   getHeaders() {
     return {
-      'Authorization': `Bearer ${this.apiKey}`,
+      'Authorization': `${this.apiKey}`,
       'Notion-Version': '2022-06-28',
       'Content-Type': 'application/json',
     };

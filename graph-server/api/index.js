@@ -17,7 +17,6 @@ const PORT = process.env.PORT || 3001;
 app.use(express.json());
 app.use(cors())
 
-const NOTION_API_KEY = process.env.NOTION_API_KEY
 const API_URL = process.env.API_URL;
 
 // sendFile will go here
@@ -28,9 +27,11 @@ app.get('/', function(req, res) {
 // Endpoint GET para retornar os filhos de um bloco
 app.get('/blocks/:blockId', async (req, res) => {
   const { blockId } = req.params;
-
+  
   try {
-    const notionAPI = new NotionAPI(API_URL, NOTION_API_KEY);
+    const AUTH = req.headers?.authorization
+    console.log(AUTH)
+    const notionAPI = new NotionAPI(API_URL, AUTH);
     const elementProcessor = new ElementProcessor();
 
     const elements = await fetchBlockChildrenRecursively(blockId, notionAPI, elementProcessor);
@@ -42,10 +43,10 @@ app.get('/blocks/:blockId', async (req, res) => {
 });
 
 app.get("/only/:blockId", async(req, res)=>{
-    const { blockId } = req.params;
-
   try {
-    const notionAPI = new NotionAPI(API_URL, NOTION_API_KEY);
+    const { blockId } = req.params;
+    const AUTH = req.headers?.authorization
+    const notionAPI = new NotionAPI(API_URL, AUTH);
     const elements = await notionAPI.fetchBlockChildren(blockId);
     res.json(elements);
   } catch (error) {
@@ -57,7 +58,8 @@ app.get("/only/:blockId", async(req, res)=>{
 
 app.post("/search", async (req, res)=>{
    try {
-    const notionAPI = new NotionAPI(API_URL, NOTION_API_KEY);
+    const AUTH = req.headers?.authorization ? req.headers.authorization : NOTION_API_KEY
+    const notionAPI = new NotionAPI(API_URL, AUTH);
     const elements = await notionAPI.fetchSearch(req.headers.authorization, req.body.query);
     res.json(elements);
   } catch (error) {
