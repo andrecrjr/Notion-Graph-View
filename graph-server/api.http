@@ -9,7 +9,7 @@ GET http://localhost:3001/only/e292d04e-84b6-4354-ae85-c4c56d196672
 
 
 ### toggle
-GET http://localhost:3001/only/683f8433-3988-4192-9812-6124d6473b81
+GET https://notion-graph-view-weld.vercel.app/only/683f8433-3988-4192-9812-6124d6473b81
 
 
 ### Search in Notion API
