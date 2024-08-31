@@ -2,8 +2,10 @@ import { useState, useEffect, useCallback } from 'react';
 import dataMock from "@/components/mock.json";
 
 import { fetchAndCacheData, processGraphData } from '../utils/graph';
+import { useSession } from 'next-auth/react';
 
 export const useFetchGraphData = (pageId: string) => {
+  const {data:authData} = useSession()
   const [data, setData] = useState<{ nodes: Node[]; links: Link[] } | null>(null);
 
   const fetchGraphData = useCallback(async () => {
@@ -13,7 +15,8 @@ export const useFetchGraphData = (pageId: string) => {
       if (pageId === "mock") {
         data = dataMock;
       } else {
-        data = await fetchAndCacheData(pageId);
+        //@ts-ignore
+        data = await fetchAndCacheData(pageId, authData?.user?.tokens.access_token!);
       }
 
       const { nodes, links } = processGraphData(data, pageId);

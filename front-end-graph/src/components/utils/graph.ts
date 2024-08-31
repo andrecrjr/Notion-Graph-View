@@ -1,4 +1,4 @@
-export const fetchAndCacheData = async (pageId: string) => {
+export const fetchAndCacheData = async (pageId: string, token:string) => {
   const localStorageKey = `data-block-${pageId}`;
   const cachedData = localStorage.getItem(localStorageKey);
 
@@ -6,7 +6,11 @@ export const fetchAndCacheData = async (pageId: string) => {
     return JSON.parse(cachedData);
   }
 
-  const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_API}/blocks/${pageId}`);
+  const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_API}/blocks/${pageId}`, {
+    headers:{
+      "Authorization": `Bearer ${token}`
+    }
+  });
   if (!response.ok) {
     throw new Error('Failed to fetch data');
   }
