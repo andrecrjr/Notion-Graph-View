@@ -2,7 +2,7 @@
 GET http://localhost:3001/blocks/81c0cfd3b10c4757bb1dd3d46dcb6606
 
 ###
-GET https://notion-graph-view-weld.vercel.app/only/ac2f9127-2a35-401c-87cb-2081a8aef1f4
+GET  http://localhost:3001/only/ac2f9127-2a35-401c-87cb-2081a8aef1f4
 
 ### Column
 GET http://localhost:3001/only/e292d04e-84b6-4354-ae85-c4c56d196672
