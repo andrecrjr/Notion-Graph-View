@@ -63,6 +63,6 @@ export const saveNodePositions = (data :{nodes:Node[]}, pageId:string) => {
 export const clearNodePositions = (pageId:string) => {
     if(localStorage.getItem(`nodePositions-${pageId}`)){
         localStorage.removeItem(`nodePositions-${pageId}`);
-        window.location.reload()
-    }
+      }
+    window.location.reload()
 };

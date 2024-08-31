@@ -2,15 +2,13 @@ import React, { useCallback } from "react";
 import { saveNodePositions } from "../utils/graph";
 import * as d3 from "d3";
 
-type Props = {};
-
 export const useGraph = () => {
   const mountGraph = useCallback((data:{nodes:Node[], links:Link[]}, svgRef: React.MutableRefObject<SVGSVGElement|null>, pageUID:string)=>{
 
     if (data.nodes.length === 0 || data.links.length === 0 || svgRef.current == null) return;
 
-    const width = window.innerWidth * 5;
-    const height = window.innerHeight * 5;
+    const width = window.innerWidth * 3;
+    const height = window.innerHeight * 4;
     
     //@ts-ignore
     const svg = d3.select(svgRef.current)
@@ -21,9 +19,9 @@ export const useGraph = () => {
 
     const simulation = d3.forceSimulation<Node>(data.nodes)
     .force("link", d3.forceLink<Node, Link>(data.links).id((d) => d.id).distance(data.nodes.length))
-    .force("charge", d3.forceManyBody().strength(-(200)))
+    .force("charge", d3.forceManyBody().strength(-(10)))
     .force("center", d3.forceCenter(width / 3, height / 3))
-    .force("collide", d3.forceCollide(5));
+    .force("collide", d3.forceCollide(65));
 
 
     const link = container.append("g")
@@ -43,7 +41,7 @@ export const useGraph = () => {
       .attr("target", "_blank")
       .append("circle")
       .attr("class", "node fill-blue-500 dark:fill-blue-300 hover:fill-blue-700 dark:hover:fill-blue-500 cursor-pointer")
-      .attr("r", 7)
+      .attr("r", 10)
       .call(
         d3.drag<SVGCircleElement, Node>()
           .on("start", dragstarted)
@@ -85,7 +83,8 @@ export const useGraph = () => {
 
     simulation.on("end", () => {
       console.log("Simulation ended, saving node positions...");
-      saveNodePositions(data, pageUID);
+      // saveNodePositions(data, pageUID);
+      
     });
 
     const zoomed = (event: d3.D3ZoomEvent<Element, unknown>) => {
@@ -105,7 +104,7 @@ export const useGraph = () => {
     svg.call(zoom).call(zoom.transform, d3.zoomIdentity.translate(initialX, initialY));
  
     function dragstarted(event: d3.D3DragEvent<SVGCircleElement, Node, Node>, d: Node) {
-      if (!event.active) simulation.alphaTarget(0.2).restart();
+      if (!event.active) simulation.alphaTarget(0).restart();
       d.fx = d.x;
       d.fy = d.y;
     }
@@ -113,6 +112,7 @@ export const useGraph = () => {
     function dragged(event: d3.D3DragEvent<SVGCircleElement, Node, Node>, d: Node) {
       d.fx = event.x;
       d.fy = event.y;
+      simulation.alpha(0.1).restart();
     }
 
      function dragended(event: d3.D3DragEvent<SVGCircleElement, Node, Node>, d: Node) {
@@ -120,14 +120,15 @@ export const useGraph = () => {
       d.fx = event.x;
       d.fy = event.y;
       // Save node positions in localStorage
-      saveNodePositions(data, pageUID)
+      // saveNodePositions(data, pageUID)
+      //simulation.alpha(0).restart(); // Stop the simulation, allowing other nodes to settle
     }
 
     return () => {
       svg.selectAll("*").remove();
     };
 
-  },[])
+  }, [])
 
   return mountGraph
 };

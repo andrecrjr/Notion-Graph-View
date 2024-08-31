@@ -30,7 +30,6 @@ app.get('/blocks/:blockId', async (req, res) => {
   
   try {
     const AUTH = req.headers?.authorization
-    console.log(AUTH)
     const notionAPI = new NotionAPI(API_URL, AUTH);
     const elementProcessor = new ElementProcessor();
 
