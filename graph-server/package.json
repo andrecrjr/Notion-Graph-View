@@ -8,7 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start:dev": "nodemon api/index.js",
     "start:prod":"node api/index.js",
-    "build":""
+    "build":"node -v"
   },
   "keywords": [],
   "author": "André Carlos Jr.",
