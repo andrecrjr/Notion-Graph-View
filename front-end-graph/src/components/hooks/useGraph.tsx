@@ -1,21 +1,29 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useCallback } from "react";
 import { saveNodePositions } from "../utils/graph";
 import * as d3 from "d3";
 
 export const useGraph = () => {
+  const LOCAL_SETTINGS = {
+    MAX_GRAPH_WIDTH: 5000,
+    MAX_GRAPH_HEIGHT: 5000,
+    RESPONSE_BREAKPOINT: 600,
+    WINDOW_WIDTH: window.innerWidth,
+    WINDOW_HEIGHT: window.innerHeight,
+    GRAPH_BALL_SIZE: { sm: 10, lg: 15 },
+    GRAPH_BALL_LABEL_MARGIN: { sm: -35, lg: -45 },
+  };
+
   const mountGraph = useCallback(
     (
       data: { nodes: Node[]; links: Link[] },
       svgRef: React.MutableRefObject<SVGSVGElement | null>,
       pageUID: string,
     ) => {
-      const width = window.innerWidth * 3;
-      const height = window.innerHeight * 4;
-
       const svg = d3 //@ts-ignore
         .select(svgRef.current)
-        .attr("width", width)
-        .attr("height", height);
+        .attr("width", LOCAL_SETTINGS.MAX_GRAPH_WIDTH)
+        .attr("height", LOCAL_SETTINGS.MAX_GRAPH_HEIGHT);
 
       const container = svg.append("g");
 
@@ -29,7 +37,13 @@ export const useGraph = () => {
             .distance(data.nodes.length),
         )
         .force("charge", d3.forceManyBody().strength(-10))
-        .force("center", d3.forceCenter(width / 3, height / 3))
+        .force(
+          "center",
+          d3.forceCenter(
+            LOCAL_SETTINGS.MAX_GRAPH_WIDTH / 3,
+            LOCAL_SETTINGS.MAX_GRAPH_HEIGHT / 3,
+          ),
+        )
         .force("collide", d3.forceCollide(65));
 
       const link = container
@@ -57,7 +71,15 @@ export const useGraph = () => {
           "class",
           "node fill-blue-500 dark:fill-blue-300 hover:fill-blue-700 dark:hover:fill-blue-500 cursor-pointer",
         )
-        .attr("r", 10)
+        .attr(
+          "r",
+
+          LOCAL_SETTINGS.GRAPH_BALL_SIZE[
+            LOCAL_SETTINGS.WINDOW_WIDTH > LOCAL_SETTINGS.RESPONSE_BREAKPOINT
+              ? "sm"
+              : "lg"
+          ],
+        )
         .call(
           d3
             .drag<SVGCircleElement, Node>()
@@ -75,11 +97,25 @@ export const useGraph = () => {
         .append("text")
         .attr("class", "label fill-gray-400 dark:fill-yellow-300")
         .attr("text-anchor", "middle")
-        .attr("dy", -15)
+        .attr(
+          "dy",
+          LOCAL_SETTINGS.GRAPH_BALL_SIZE[
+            LOCAL_SETTINGS.WINDOW_WIDTH > LOCAL_SETTINGS.RESPONSE_BREAKPOINT
+              ? "sm"
+              : "lg"
+          ] +
+            LOCAL_SETTINGS.GRAPH_BALL_LABEL_MARGIN[
+              LOCAL_SETTINGS.WINDOW_WIDTH > LOCAL_SETTINGS.RESPONSE_BREAKPOINT
+                ? "sm"
+                : "lg"
+            ],
+        )
         .text((d) => d.label);
 
-      const initialX = window.innerWidth / 2 - width / 3;
-      const initialY = window.innerHeight / 2 - height / 3;
+      const initialX =
+        LOCAL_SETTINGS.WINDOW_WIDTH / 2 - LOCAL_SETTINGS.MAX_GRAPH_WIDTH / 3;
+      const initialY =
+        LOCAL_SETTINGS.WINDOW_HEIGHT / 2 - LOCAL_SETTINGS.MAX_GRAPH_HEIGHT / 3;
 
       container.attr("transform", `translate(${initialX},${initialY})`);
 
@@ -96,7 +132,7 @@ export const useGraph = () => {
             (d) =>
               ((d as Node).x = Math.max(
                 10,
-                Math.min(width - 10, (d as Node).x!),
+                Math.min(LOCAL_SETTINGS.MAX_GRAPH_WIDTH - 10, (d as Node).x!),
               )),
           )
           .attr(
@@ -104,7 +140,7 @@ export const useGraph = () => {
             (d) =>
               ((d as Node).y = Math.max(
                 10,
-                Math.min(height - 10, (d as Node).y!),
+                Math.min(LOCAL_SETTINGS.MAX_GRAPH_HEIGHT - 10, (d as Node).y!),
               )),
           );
 
@@ -121,8 +157,14 @@ export const useGraph = () => {
       const zoomed = (event: d3.D3ZoomEvent<Element, unknown>) => {
         const { k, x, y } = event.transform;
 
-        const newWidth = Math.max(width, Math.abs(x) * 2);
-        const newHeight = Math.max(height, Math.abs(y) * 2);
+        const newWidth = Math.max(
+          LOCAL_SETTINGS.MAX_GRAPH_WIDTH,
+          Math.abs(x) * 2,
+        );
+        const newHeight = Math.max(
+          LOCAL_SETTINGS.MAX_GRAPH_HEIGHT,
+          Math.abs(y) * 2,
+        );
         svg.attr("width", newWidth).attr("height", newHeight);
 
         container.attr("transform", `translate(${x},${y}) scale(${k})`);
@@ -133,8 +175,8 @@ export const useGraph = () => {
         .scaleExtent([0.5, 5])
         .on("zoom", zoomed);
       //@ts-ignore
-      svg
-        .call(zoom)
+      svg //@ts-ignore
+        .call(zoom) //@ts-ignore
         .call(zoom.transform, d3.zoomIdentity.translate(initialX, initialY));
 
       function dragstarted(
@@ -164,7 +206,7 @@ export const useGraph = () => {
         d.fy = event.y;
         // Save node positions in localStorage
         // saveNodePositions(data, pageUID)
-        //simulation.alpha(0).restart(); // Stop the simulation, allowing other nodes to settle
+        simulation.alpha(0).restart();
       }
 
       return () => {
