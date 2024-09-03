@@ -1,4 +1,4 @@
-export const fetchAndCacheData = async (pageId: string, token:string) => {
+export const fetchAndCacheData = async (pageId: string, token: string) => {
   const localStorageKey = `data-block-${pageId}`;
   const cachedData = localStorage.getItem(localStorageKey);
 
@@ -6,13 +6,16 @@ export const fetchAndCacheData = async (pageId: string, token:string) => {
     return JSON.parse(cachedData);
   }
 
-  const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_API}/blocks/${pageId}`, {
-    headers:{
-      "Authorization": `Bearer ${token}`
-    }
-  });
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_API}/blocks/${pageId}`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    },
+  );
   if (!response.ok) {
-    throw new Error('Failed to fetch data');
+    throw new Error("Failed to fetch data");
   }
 
   const data = await response.json();
@@ -29,18 +32,18 @@ export const processGraphData = (data: any, blockId: string) => {
   const nodes: Node[] = data
     .filter((d: any) => d.type === "page")
     .map((d: any) => ({ id: d.id, label: d.label }));
-
   const links: Link[] = data
-    .filter((d: any) =>
-      d.type === "node" &&
-      nodes.some((node: Node) => node.id === d.source) &&
-      nodes.some((node: Node) => node.id === d.target)
+    .filter(
+      (d: any) =>
+        d.type === "node" &&
+        nodes.some((node: Node) => node.id === d.source) &&
+        nodes.some((node: Node) => node.id === d.target),
     )
     .map((d: any) => ({ source: d.source, target: d.target }));
 
   const savedPositions = loadNodePositions(blockId);
 
-  nodes.forEach(node => {
+  nodes.forEach((node) => {
     if (savedPositions[node.id]) {
       node.fx = savedPositions[node.id].x;
       node.fy = savedPositions[node.id].y;
@@ -50,19 +53,21 @@ export const processGraphData = (data: any, blockId: string) => {
   return { nodes, links };
 };
 
+export const saveNodePositions = (data: { nodes: Node[] }, pageId: string) => {
+  const positions = data.nodes.reduce(
+    (acc, node) => {
+      acc[node.id] = { x: node.x || 0, y: node.y || 0 };
+      return acc;
+    },
+    {} as Record<string, { x: number | null; y: number | null }>,
+  );
 
-export const saveNodePositions = (data :{nodes:Node[]}, pageId:string) => {
-      const positions = data.nodes.reduce((acc, node) => {
-        acc[node.id] = { x: node.x||0, y: node.y||0 };
-        return acc;
-      }, {} as Record<string, { x: number | null, y: number | null }>);
-
-      localStorage.setItem(`nodePositions-${pageId}`, JSON.stringify(positions));
+  localStorage.setItem(`nodePositions-${pageId}`, JSON.stringify(positions));
 };
 
-export const clearNodePositions = (pageId:string) => {
-    if(localStorage.getItem(`nodePositions-${pageId}`)){
-        localStorage.removeItem(`nodePositions-${pageId}`);
-      }
-    window.location.reload()
+export const clearNodePositions = (pageId: string) => {
+  if (localStorage.getItem(`nodePositions-${pageId}`)) {
+    localStorage.removeItem(`nodePositions-${pageId}`);
+  }
+  window.location.reload();
 };
