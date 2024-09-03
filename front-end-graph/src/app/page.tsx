@@ -1,6 +1,7 @@
 import { auth } from "@/components/Auth";
 import AuthButton from "@/components/Buttons";
 import SearchInput from "@/components/SearchInput";
+import { SearchByUrl } from "@/components/SearchInput/SearchByUrl";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
@@ -19,7 +20,7 @@ export default async function Home() {
               Hello {data.user?.name}, find your notion page in the search below!
             </p>
             <AuthButton />
-            <SearchInput />
+            <SearchByUrl />
           </>
           )
           : (

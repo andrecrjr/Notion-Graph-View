@@ -40,7 +40,7 @@ export default function SearchInput() {
       if (inputValue) {
         setIsLoading(true)
         //@ts-ignore
-        const searchResults = await fetchSearchResults(inputValue, data?.user?.tokens.access_token)
+        // const searchResults = await fetchSearchResults(inputValue, data?.user?.tokens.access_token)
         setResults(searchResults)
         setIsLoading(false)
         setShowResults(true)
