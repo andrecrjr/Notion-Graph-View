@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { GoogleAnalytics } from "@next/third-parties/google";
+
 import { Inter } from "next/font/google";
 
 import "../globals.css";
@@ -20,6 +22,9 @@ export default function RootLayout({
     <html lang="en">
       <body data-layout="graph">
         <AuthProvider>{children}</AuthProvider>
+        {process.env.NODE_ENV === "production" && (
+          <GoogleAnalytics gaId="G-LX2KQTDYSV" />
+        )}
       </body>
     </html>
   );

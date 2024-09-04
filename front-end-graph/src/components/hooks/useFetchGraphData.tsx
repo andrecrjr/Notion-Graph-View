@@ -1,18 +1,20 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from "react";
 import dataMock from "@/components/mock.json";
-import { fetchAndCacheData, processGraphData } from '../utils/graph';
-import { useSession } from 'next-auth/react';
+import { fetchAndCacheData, processGraphData } from "../utils/graph";
+import { useSession } from "next-auth/react";
 
 export const useFetchGraphData = (pageId: string) => {
-  const { data: authData } = useSession();
-  
-  const [data, setData] = useState<{ nodes: Node[]; links: Link[] } | null>(null);
+  const { data: authData, status } = useSession();
+
+  const [data, setData] = useState<{ nodes: Node[]; links: Link[] } | null>(
+    null,
+  );
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
   const processGraphDataMemoized = useCallback(
     (data: any) => processGraphData(data, pageId),
-    [pageId]
+    [pageId],
   );
 
   const fetchGraphData = useCallback(async () => {
@@ -25,31 +27,34 @@ export const useFetchGraphData = (pageId: string) => {
         fetchedData = dataMock;
         //@ts-expect-error
       } else if (authData?.user?.tokens.access_token) {
-        //@ts-expect-error
-        fetchedData = await fetchAndCacheData(pageId, authData.user.tokens.access_token);
+        fetchedData = await fetchAndCacheData(
+          pageId, //@ts-expect-error
+          authData.user.tokens.access_token,
+        );
       }
 
       if (fetchedData) {
         const processedGraphData = processGraphDataMemoized(fetchedData);
         setData(processedGraphData);
-
       } else {
-        setError('No data returned from API.');
+        setError("No data returned from API.");
       }
     } catch (error) {
       //@ts-expect-error
-      setError('Error fetching graph data: ' + error.message);
-      console.error('Error fetching graph data:', error);
+      setError("Error fetching graph data: " + error.message);
+      console.error("Error fetching graph data:", error);
     } finally {
       setLoading(false);
     }
   }, [pageId, authData, processGraphDataMemoized]);
 
   useEffect(() => {
+    console.log("user is", status);
+    console.log(authData, !data);
     if (authData && !data) {
       fetchGraphData();
     }
-  }, [authData, data, fetchGraphData]);
+  }, [status, authData, data, fetchGraphData, pageId]);
 
   return { data, loading, error };
 };
