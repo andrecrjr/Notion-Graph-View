@@ -5,9 +5,7 @@ import { Search } from "lucide-react";
 import { Button } from "../ui/button";
 import { useRouter } from "next/navigation";
 
-type Props = {};
-
-export const SearchByUrl = (props: Props) => {
+export const SearchByUrl = () => {
   const router = useRouter();
   const [inputValue, setInputValue] = useState<string>("");
 
@@ -23,7 +21,7 @@ export const SearchByUrl = (props: Props) => {
 
     if (match) {
       const notionId = match[0];
-      router.push(`/graph/${notionId}`);
+      window.location.href = `/graph/${notionId}`;
     } else {
       alert(
         "Não achamos sua página do Notion, tente a url de compartilhamento.",
