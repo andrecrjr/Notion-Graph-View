@@ -59,11 +59,9 @@ class NotionAPI {
     let nextCursor = null;
   
     while (hasMore) {
-
       const data = await notionAPI.fetchBlockChildren(blockId, nextCursor);
       nextCursor = data.next_cursor;
       hasMore = data.has_more;
-  
       const childPromises = data.results.map(async (child) => {
         const childId = elementProcessor.processChild(child, parentId);
         if (childId) {

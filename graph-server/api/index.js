@@ -50,7 +50,8 @@ app.get('/blocks/:blockId', async (req, res) => {
     const elementProcessor = new ElementProcessor();
     const firstParent = await notionAPI.fetchBlockChildren(blockId, false, false);
     elementProcessor.processParent(firstParent)
-    const elements = await fetchBlockChildrenRecursively(blockId, notionAPI, elementProcessor);
+    console.log(firstParent)
+    const elements = await fetchBlockChildrenRecursively(blockId, notionAPI, elementProcessor, firstParent.id);
     res.json(elements);
   } catch (error) {
     console.error('Erro ao buscar filhos do bloco:', error);
