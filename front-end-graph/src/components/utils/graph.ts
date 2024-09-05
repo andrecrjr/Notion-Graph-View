@@ -73,3 +73,8 @@ export const clearNodePositions = (pageId: string) => {
   }
   window.location.reload();
 };
+
+export const syncPage = (pageId: string) => {
+  saveStorage.delete(`nodePositions-${pageId}`);
+  saveStorage.delete(`data-block-${pageId}`);
+};

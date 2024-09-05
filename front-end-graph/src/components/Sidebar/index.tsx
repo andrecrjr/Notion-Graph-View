@@ -1,14 +1,30 @@
 "use client";
-import { Pin, PinOff, Save, Settings, UnplugIcon, X } from "lucide-react";
-import { usePathname } from "next/navigation";
+import {
+  ArrowLeft,
+  Coffee,
+  LoaderIcon,
+  Pin,
+  PinOff,
+  RefreshCcw,
+  Save,
+  Settings,
+  UnplugIcon,
+  X,
+} from "lucide-react";
+import { usePathname, useRouter } from "next/navigation";
 import React, { useContext, useState } from "react";
 import { saveStorage } from "../utils";
-import { clearNodePositions, saveNodePositions } from "../utils/graph";
+import {
+  clearNodePositions,
+  saveNodePositions,
+  syncPage,
+} from "../utils/graph";
 import { GraphContext } from "../Graph/GraphContext";
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { getNodes } = useContext(GraphContext);
+  const router = useRouter();
 
   const path = usePathname().replace("/graph/", "");
 
@@ -31,7 +47,7 @@ const Sidebar = () => {
         } transition-transform duration-300 ease-in-out z-40`}
       >
         <div className="mt-20">
-          <ul>
+          <ul className="flex flex-col">
             <li className="w-full">
               <button
                 className="p-4 w-full hover:bg-gray-700 flex"
@@ -58,9 +74,28 @@ const Sidebar = () => {
                 </button>
               </li>
             )}
-            <li className="w-full mt-auto">
+            <li className="w-full mt-auto self-center">
+              <a
+                className="p-4 w-full hover:bg-gray-700 flex"
+                href="https://ko-fi.com/B0B812WECP"
+              >
+                <Coffee className="mr-4" /> Buy me a coffee {";)"}
+              </a>
+            </li>
+            <li className="w-full mt-auto self-center">
+              <button
+                className="p-4 w-full hover:bg-gray-700 flex"
+                onClick={(e) => {
+                  syncPage(path);
+                  window.location.reload();
+                }}
+              >
+                <RefreshCcw className="mr-4" /> Syncronize with Notion
+              </button>
+            </li>
+            <li className="w-full mt-auto self-center">
               <a className="p-4 w-full hover:bg-gray-700 flex" href="/">
-                Back to Home
+                <ArrowLeft className="mr-4" /> Back to Home
               </a>
             </li>
           </ul>

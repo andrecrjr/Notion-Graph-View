@@ -1,1 +1,227 @@
-[{"id":"9a1db017-7fac-4402-bdb3-bc881aa6d0ad","label":"Development","type":"page"},{"id":"ba79bb7e-a23d-421d-9872-e3981c84930f","label":"Web Development","type":"page"},{"source":"9a1db017-7fac-4402-bdb3-bc881aa6d0ad","target":"ba79bb7e-a23d-421d-9872-e3981c84930f","type":"node"},{"id":"88f8e100-6cb5-4e51-a27f-6569e12edbc6","label":"event stream","type":"page"},{"source":"bf1f494f-7fe2-433d-9324-96863967d40c","target":"88f8e100-6cb5-4e51-a27f-6569e12edbc6","type":"node"},{"source":"9a1db017-7fac-4402-bdb3-bc881aa6d0ad","target":"88f8e100-6cb5-4e51-a27f-6569e12edbc6","type":"node"},{"id":"81c0cfd3-b10c-4757-bb1d-d3d46dcb6606","label":"Design Patterns and Architectures","type":"page"},{"source":"bf1f494f-7fe2-433d-9324-96863967d40c","target":"81c0cfd3-b10c-4757-bb1d-d3d46dcb6606","type":"node"},{"source":"9a1db017-7fac-4402-bdb3-bc881aa6d0ad","target":"81c0cfd3-b10c-4757-bb1d-d3d46dcb6606","type":"node"},{"id":"688ca27d-8159-4792-b490-4569d75ccd9f","label":"Segurança em APIs BackEnd(NodeJS)","type":"page"},{"source":"bf1f494f-7fe2-433d-9324-96863967d40c","target":"688ca27d-8159-4792-b490-4569d75ccd9f","type":"node"},{"source":"9a1db017-7fac-4402-bdb3-bc881aa6d0ad","target":"688ca27d-8159-4792-b490-4569d75ccd9f","type":"node"},{"id":"3af1ce9e-1afb-4565-af68-130fca16e126","label":"Estrutura de Dados","type":"page"},{"source":"bf1f494f-7fe2-433d-9324-96863967d40c","target":"3af1ce9e-1afb-4565-af68-130fca16e126","type":"node"},{"source":"9a1db017-7fac-4402-bdb3-bc881aa6d0ad","target":"3af1ce9e-1afb-4565-af68-130fca16e126","type":"node"},{"id":"5490d508-ac43-4822-8d03-8c9475a3051e","label":"CI  / CD","type":"page"},{"source":"bf1f494f-7fe2-433d-9324-96863967d40c","target":"5490d508-ac43-4822-8d03-8c9475a3051e","type":"node"},{"source":"9a1db017-7fac-4402-bdb3-bc881aa6d0ad","target":"5490d508-ac43-4822-8d03-8c9475a3051e","type":"node"},{"id":"b7744720-2cfc-4742-9c16-57c944078c34","label":"SEO","type":"page"},{"source":"bf1f494f-7fe2-433d-9324-96863967d40c","target":"b7744720-2cfc-4742-9c16-57c944078c34","type":"node"},{"source":"9a1db017-7fac-4402-bdb3-bc881aa6d0ad","target":"b7744720-2cfc-4742-9c16-57c944078c34","type":"node"},{"id":"5fb3cf2e-e742-4432-bfd2-ba155d76aaef","label":"Shellscript","type":"page"},{"source":"dd084f5f-0a74-46ea-9620-8c4eb795f563","target":"5fb3cf2e-e742-4432-bfd2-ba155d76aaef","type":"node"},{"source":"9a1db017-7fac-4402-bdb3-bc881aa6d0ad","target":"5fb3cf2e-e742-4432-bfd2-ba155d76aaef","type":"node"},{"id":"23dbc2e9-139a-4080-bdfb-f2eb96b9a157","label":"Pico 8","type":"page"},{"source":"dd084f5f-0a74-46ea-9620-8c4eb795f563","target":"23dbc2e9-139a-4080-bdfb-f2eb96b9a157","type":"node"},{"source":"9a1db017-7fac-4402-bdb3-bc881aa6d0ad","target":"23dbc2e9-139a-4080-bdfb-f2eb96b9a157","type":"node"},{"id":"187a2bf3-1750-4eef-9426-aa8b744976d2","label":"Godot","type":"page"},{"source":"dd084f5f-0a74-46ea-9620-8c4eb795f563","target":"187a2bf3-1750-4eef-9426-aa8b744976d2","type":"node"},{"source":"9a1db017-7fac-4402-bdb3-bc881aa6d0ad","target":"187a2bf3-1750-4eef-9426-aa8b744976d2","type":"node"},{"id":"d64efead-a4e7-4fa1-b545-8cd4d7543fe5","label":"Langchain/IA/Chatgpt","type":"page"},{"source":"dd084f5f-0a74-46ea-9620-8c4eb795f563","target":"d64efead-a4e7-4fa1-b545-8cd4d7543fe5","type":"node"},{"source":"9a1db017-7fac-4402-bdb3-bc881aa6d0ad","target":"d64efead-a4e7-4fa1-b545-8cd4d7543fe5","type":"node"},{"id":"cbf3d139-098b-49da-b36c-34ff1556c6a0","label":"front-end","type":"page"},{"source":"dd084f5f-0a74-46ea-9620-8c4eb795f563","target":"cbf3d139-098b-49da-b36c-34ff1556c6a0","type":"node"},{"source":"9a1db017-7fac-4402-bdb3-bc881aa6d0ad","target":"cbf3d139-098b-49da-b36c-34ff1556c6a0","type":"node"},{"id":"d15f3897-001e-49ad-8710-0fdf10b59c74","label":"Hashs e senhas em back-end","type":"page"},{"source":"688ca27d-8159-4792-b490-4569d75ccd9f","target":"d15f3897-001e-49ad-8710-0fdf10b59c74","type":"node"},{"id":"39700a5f-11bb-425d-9747-9c46231f8983","label":"JWT Json Web Token","type":"page"},{"source":"688ca27d-8159-4792-b490-4569d75ccd9f","target":"39700a5f-11bb-425d-9747-9c46231f8983","type":"node"},{"id":"d275be65-eb24-488d-a46a-037f4bb8808f","label":"Glossario de segurança","type":"page"},{"source":"688ca27d-8159-4792-b490-4569d75ccd9f","target":"d275be65-eb24-488d-a46a-037f4bb8808f","type":"node"},{"id":"6348b23c-1b98-4bd3-a994-ac1ab4109c55","label":"Clean Code","type":"page"},{"source":"81c0cfd3-b10c-4757-bb1d-d3d46dcb6606","target":"6348b23c-1b98-4bd3-a994-ac1ab4109c55","type":"node"},{"id":"d3df87fd-0612-42d3-8671-a8e6dd615e9c","label":"Google Search Central - 2023","type":"page"},{"source":"b7744720-2cfc-4742-9c16-57c944078c34","target":"d3df87fd-0612-42d3-8671-a8e6dd615e9c","type":"node"},{"id":"274d4836-44ac-4277-9f4d-c88b438485b8","label":"Ponteiros","type":"page"},{"source":"3af1ce9e-1afb-4565-af68-130fca16e126","target":"274d4836-44ac-4277-9f4d-c88b438485b8","type":"node"},{"id":"086d8ab8-16a8-40fd-9489-2dbdbbca5472","label":"Typescript/Javascript 🧠","type":"page"},{"source":"cbf3d139-098b-49da-b36c-34ff1556c6a0","target":"086d8ab8-16a8-40fd-9489-2dbdbbca5472","type":"node"},{"id":"e05b105c-39b1-4297-abf5-926279d45f53","label":"Database/Banco de dados","type":"page"},{"source":"e292d04e-84b6-4354-ae85-c4c56d196672","target":"e05b105c-39b1-4297-abf5-926279d45f53","type":"node"},{"source":"9a1db017-7fac-4402-bdb3-bc881aa6d0ad","target":"e05b105c-39b1-4297-abf5-926279d45f53","type":"node"},{"id":"433f81c2-8fe0-45b5-abf6-bfd69c18db5f","label":"Docker ","type":"page"},{"source":"e292d04e-84b6-4354-ae85-c4c56d196672","target":"433f81c2-8fe0-45b5-abf6-bfd69c18db5f","type":"node"},{"source":"9a1db017-7fac-4402-bdb3-bc881aa6d0ad","target":"433f81c2-8fe0-45b5-abf6-bfd69c18db5f","type":"node"},{"id":"a1196e02-20a2-47b9-8b95-fb971fc61199","label":"Graphql","type":"page"},{"source":"e292d04e-84b6-4354-ae85-c4c56d196672","target":"a1196e02-20a2-47b9-8b95-fb971fc61199","type":"node"},{"source":"9a1db017-7fac-4402-bdb3-bc881aa6d0ad","target":"a1196e02-20a2-47b9-8b95-fb971fc61199","type":"node"},{"id":"06e5a29a-70bf-460f-a7f4-43963b29a9cd","label":"Alexa","type":"page"},{"source":"e292d04e-84b6-4354-ae85-c4c56d196672","target":"06e5a29a-70bf-460f-a7f4-43963b29a9cd","type":"node"},{"source":"9a1db017-7fac-4402-bdb3-bc881aa6d0ad","target":"06e5a29a-70bf-460f-a7f4-43963b29a9cd","type":"node"},{"id":"66551206-c1b1-425e-83dd-d980468a15bf","label":"ChatGPT Brainstorms Ideas","type":"page"},{"source":"d64efead-a4e7-4fa1-b545-8cd4d7543fe5","target":"66551206-c1b1-425e-83dd-d980468a15bf","type":"node"},{"id":"0c55c168-72e0-4800-8c4f-1ae3e9498c89","label":"Structural","type":"page"},{"source":"e32f3a38-e485-41e1-a696-7a97217edef4","target":"0c55c168-72e0-4800-8c4f-1ae3e9498c89","type":"node"},{"source":"81c0cfd3-b10c-4757-bb1d-d3d46dcb6606","target":"0c55c168-72e0-4800-8c4f-1ae3e9498c89","type":"node"},{"id":"b0203f77-e17e-49b4-864d-bf1a5541977c","label":"Creational Pattern","type":"page"},{"source":"9abfd8be-bcb1-4a52-ab47-8afe27e782a8","target":"b0203f77-e17e-49b4-864d-bf1a5541977c","type":"node"},{"source":"81c0cfd3-b10c-4757-bb1d-d3d46dcb6606","target":"b0203f77-e17e-49b4-864d-bf1a5541977c","type":"node"},{"id":"628ba9e0-b3ef-4351-b73f-d08aaf8280b2","label":"Behavioral","type":"page"},{"source":"823b808d-d165-48b2-bd14-727c5d09320f","target":"628ba9e0-b3ef-4351-b73f-d08aaf8280b2","type":"node"},{"source":"81c0cfd3-b10c-4757-bb1d-d3d46dcb6606","target":"628ba9e0-b3ef-4351-b73f-d08aaf8280b2","type":"node"},{"id":"9c6c73f6-40b3-42f0-9dca-fe7750b57c32","label":"Projetos","type":"page"},{"source":"23dbc2e9-139a-4080-bdfb-f2eb96b9a157","target":"9c6c73f6-40b3-42f0-9dca-fe7750b57c32","type":"node"},{"id":"f841a72c-377d-4a50-9ed8-89a44f928a11","label":"Snippets pico 8","type":"page"},{"source":"23dbc2e9-139a-4080-bdfb-f2eb96b9a157","target":"f841a72c-377d-4a50-9ed8-89a44f928a11","type":"node"},{"id":"4b76b48f-bb39-42ee-8bdf-0e302219c6a2","label":"Godot Nodes","type":"page"},{"source":"187a2bf3-1750-4eef-9426-aa8b744976d2","target":"4b76b48f-bb39-42ee-8bdf-0e302219c6a2","type":"node"},{"id":"c5321be9-cad4-41ea-8e8c-95b29415e03f","label":"Proxy","type":"page"},{"source":"c6629444-d200-4533-b8ff-469941a19e9c","target":"c5321be9-cad4-41ea-8e8c-95b29415e03f","type":"node"},{"source":"9a1db017-7fac-4402-bdb3-bc881aa6d0ad","target":"c5321be9-cad4-41ea-8e8c-95b29415e03f","type":"node"},{"id":"54304696-0267-4a5a-8139-d704ce53edea","label":"How Browser Works","type":"page"},{"source":"c6629444-d200-4533-b8ff-469941a19e9c","target":"54304696-0267-4a5a-8139-d704ce53edea","type":"node"},{"source":"9a1db017-7fac-4402-bdb3-bc881aa6d0ad","target":"54304696-0267-4a5a-8139-d704ce53edea","type":"node"},{"id":"dbada112-ab6a-4b31-97ec-edd5d6eb0ed0","label":"Monorepo e MicroRepo","type":"page"},{"source":"c6629444-d200-4533-b8ff-469941a19e9c","target":"dbada112-ab6a-4b31-97ec-edd5d6eb0ed0","type":"node"},{"source":"9a1db017-7fac-4402-bdb3-bc881aa6d0ad","target":"dbada112-ab6a-4b31-97ec-edd5d6eb0ed0","type":"node"},{"id":"7937fb6d-1a14-4a8b-adeb-db3ac1604997","label":"HTTP Methods","type":"page"},{"source":"c6629444-d200-4533-b8ff-469941a19e9c","target":"7937fb6d-1a14-4a8b-adeb-db3ac1604997","type":"node"},{"source":"9a1db017-7fac-4402-bdb3-bc881aa6d0ad","target":"7937fb6d-1a14-4a8b-adeb-db3ac1604997","type":"node"},{"id":"9cd12535-3e60-4493-bc03-b5ace2e01986","label":"SEO Optimizations","type":"page"},{"source":"d0d18ece-8d6d-469b-a1f8-ed28508f6809","target":"9cd12535-3e60-4493-bc03-b5ace2e01986","type":"node"},{"source":"b7744720-2cfc-4742-9c16-57c944078c34","target":"9cd12535-3e60-4493-bc03-b5ace2e01986","type":"node"},{"id":"cf125900-5e3e-41b6-95b6-9b04132e8c6c","label":"Redis","type":"page"},{"source":"e05b105c-39b1-4297-abf5-926279d45f53","target":"cf125900-5e3e-41b6-95b6-9b04132e8c6c","type":"node"},{"id":"f7d1dd97-9d93-4653-9bfc-71dece77e3fa","label":"Google Ranking Factors","type":"page"},{"source":"3b065527-b5c2-45c0-9a1d-fbd5d734872c","target":"f7d1dd97-9d93-4653-9bfc-71dece77e3fa","type":"node"},{"source":"b7744720-2cfc-4742-9c16-57c944078c34","target":"f7d1dd97-9d93-4653-9bfc-71dece77e3fa","type":"node"},{"id":"f8ccc03b-44f9-4483-891d-6d4782434309","label":"Métricas Digitais","type":"page"},{"source":"c3170ae5-8964-4897-a139-78f1129211ef","target":"f8ccc03b-44f9-4483-891d-6d4782434309","type":"node"},{"source":"b7744720-2cfc-4742-9c16-57c944078c34","target":"f8ccc03b-44f9-4483-891d-6d4782434309","type":"node"},{"id":"eeb786b5-6469-42d5-ac6f-fdc41d09000a","label":"Web Performance","type":"page"},{"source":"30ea9115-0150-463a-8160-6c9e8ec3a548","target":"eeb786b5-6469-42d5-ac6f-fdc41d09000a","type":"node"},{"source":"b7744720-2cfc-4742-9c16-57c944078c34","target":"eeb786b5-6469-42d5-ac6f-fdc41d09000a","type":"node"},{"id":"0e857ff7-122c-4d22-96cf-ac9a6331a461","label":"Projetos","type":"page"},{"source":"5316b8b4-9dac-4856-bf5f-994fa29f4c35","target":"0e857ff7-122c-4d22-96cf-ac9a6331a461","type":"node"},{"source":"9a1db017-7fac-4402-bdb3-bc881aa6d0ad","target":"0e857ff7-122c-4d22-96cf-ac9a6331a461","type":"node"},{"id":"18df283c-8d2f-474f-825b-18302b975366","label":"Dicas","type":"page"},{"source":"06e5a29a-70bf-460f-a7f4-43963b29a9cd","target":"18df283c-8d2f-474f-825b-18302b975366","type":"node"},{"id":"f7933920-731f-4b2b-b5e5-3d7ac9c2ea4f","label":"Apollo Client","type":"page"},{"source":"a1196e02-20a2-47b9-8b95-fb971fc61199","target":"f7933920-731f-4b2b-b5e5-3d7ac9c2ea4f","type":"node"},{"id":"4254eea7-958a-4ceb-8746-a6b4f21f9950","label":"Docker Compose","type":"page"},{"source":"433f81c2-8fe0-45b5-abf6-bfd69c18db5f","target":"4254eea7-958a-4ceb-8746-a6b4f21f9950","type":"node"},{"id":"bd4832c7-6aa5-494f-9666-828f54a9ba82","label":"Docker Run commands","type":"page"},{"source":"433f81c2-8fe0-45b5-abf6-bfd69c18db5f","target":"bd4832c7-6aa5-494f-9666-828f54a9ba82","type":"node"},{"id":"d92a2d90-56f4-428e-93ff-1cf1ad1d682d","label":"Dimension Rex - Roguelike - Game Design Document","type":"page"},{"source":"9c6c73f6-40b3-42f0-9dca-fe7750b57c32","target":"d92a2d90-56f4-428e-93ff-1cf1ad1d682d","type":"node"},{"id":"9c558c95-01b1-4835-81eb-4ca17b4de5b5","label":"Redis Architecture","type":"page"},{"source":"cf125900-5e3e-41b6-95b6-9b04132e8c6c","target":"9c558c95-01b1-4835-81eb-4ca17b4de5b5","type":"node"},{"id":"505ac2aa-70f8-4605-b6e6-fe287e09bec1","label":"Comandos do redis e ioredis","type":"page"},{"source":"cf125900-5e3e-41b6-95b6-9b04132e8c6c","target":"505ac2aa-70f8-4605-b6e6-fe287e09bec1","type":"node"},{"id":"17456256-c901-4741-8633-b4ee305ce805","label":"Alexandria","type":"page"},{"source":"0e857ff7-122c-4d22-96cf-ac9a6331a461","target":"17456256-c901-4741-8633-b4ee305ce805","type":"node"},{"id":"1070d12a-5695-472e-b938-e47cf45c87a5","label":"Checklist de SEO","type":"page"},{"source":"9cd12535-3e60-4493-bc03-b5ace2e01986","target":"1070d12a-5695-472e-b938-e47cf45c87a5","type":"node"},{"id":"ba74f6ff-d3b1-436d-8b35-ae0be6d12b9d","label":"Core Web Vitals","type":"page"},{"source":"16c6a078-934e-4efd-9f18-34c298a1a0c8","target":"ba74f6ff-d3b1-436d-8b35-ae0be6d12b9d","type":"node"},{"source":"9cd12535-3e60-4493-bc03-b5ace2e01986","target":"ba74f6ff-d3b1-436d-8b35-ae0be6d12b9d","type":"node"},{"id":"bc93eb19-a673-46c5-8e97-266924cd263e","label":"Ferramentas de SEO","type":"page"},{"source":"d6a67dca-07c4-4033-b350-00cd5a8eb16c","target":"bc93eb19-a673-46c5-8e97-266924cd263e","type":"node"},{"source":"9cd12535-3e60-4493-bc03-b5ace2e01986","target":"bc93eb19-a673-46c5-8e97-266924cd263e","type":"node"},{"id":"5cb10bc6-6d78-4b63-a147-d765e6be7ec6","label":"Init Projects - Front-end","type":"page"},{"source":"b920dad6-897d-4919-8e4a-dd25a2fd7c9d","target":"5cb10bc6-6d78-4b63-a147-d765e6be7ec6","type":"node"},{"source":"086d8ab8-16a8-40fd-9489-2dbdbbca5472","target":"5cb10bc6-6d78-4b63-a147-d765e6be7ec6","type":"node"},{"id":"027abef7-16f8-4ff7-8198-dd4bf80f82e9","label":"Typescript","type":"page"},{"source":"b920dad6-897d-4919-8e4a-dd25a2fd7c9d","target":"027abef7-16f8-4ff7-8198-dd4bf80f82e9","type":"node"},{"source":"086d8ab8-16a8-40fd-9489-2dbdbbca5472","target":"027abef7-16f8-4ff7-8198-dd4bf80f82e9","type":"node"},{"id":"7243447b-48e0-4765-aa76-c28a16088093","label":"Javascript","type":"page"},{"source":"b920dad6-897d-4919-8e4a-dd25a2fd7c9d","target":"7243447b-48e0-4765-aa76-c28a16088093","type":"node"},{"source":"086d8ab8-16a8-40fd-9489-2dbdbbca5472","target":"7243447b-48e0-4765-aa76-c28a16088093","type":"node"},{"id":"72a3037a-5c8e-4dee-8c09-eda91106b24a","label":"WebComponents","type":"page"},{"source":"b920dad6-897d-4919-8e4a-dd25a2fd7c9d","target":"72a3037a-5c8e-4dee-8c09-eda91106b24a","type":"node"},{"source":"086d8ab8-16a8-40fd-9489-2dbdbbca5472","target":"72a3037a-5c8e-4dee-8c09-eda91106b24a","type":"node"},{"id":"5d8dec5a-a29b-49d2-875f-a2993c240ddc","label":"Document Object Model","type":"page"},{"source":"b920dad6-897d-4919-8e4a-dd25a2fd7c9d","target":"5d8dec5a-a29b-49d2-875f-a2993c240ddc","type":"node"},{"source":"086d8ab8-16a8-40fd-9489-2dbdbbca5472","target":"5d8dec5a-a29b-49d2-875f-a2993c240ddc","type":"node"},{"id":"b1f81d3b-f5b6-496a-89ff-9c97890f0d57","label":"React","type":"page"},{"source":"b920dad6-897d-4919-8e4a-dd25a2fd7c9d","target":"b1f81d3b-f5b6-496a-89ff-9c97890f0d57","type":"node"},{"source":"086d8ab8-16a8-40fd-9489-2dbdbbca5472","target":"b1f81d3b-f5b6-496a-89ff-9c97890f0d57","type":"node"},{"id":"608d45e5-ec55-4e42-adac-5beb8bca5388","label":"Next JS","type":"page"},{"source":"b920dad6-897d-4919-8e4a-dd25a2fd7c9d","target":"608d45e5-ec55-4e42-adac-5beb8bca5388","type":"node"},{"source":"086d8ab8-16a8-40fd-9489-2dbdbbca5472","target":"608d45e5-ec55-4e42-adac-5beb8bca5388","type":"node"},{"id":"54c862ba-1c54-4a2b-b9a4-74c3d1000c25","label":"NodeJS Environments","type":"page"},{"source":"b920dad6-897d-4919-8e4a-dd25a2fd7c9d","target":"54c862ba-1c54-4a2b-b9a4-74c3d1000c25","type":"node"},{"source":"086d8ab8-16a8-40fd-9489-2dbdbbca5472","target":"54c862ba-1c54-4a2b-b9a4-74c3d1000c25","type":"node"},{"id":"9c7b8133-3a06-4555-83f0-48224783a6cc","label":"NestJS","type":"page"},{"source":"b920dad6-897d-4919-8e4a-dd25a2fd7c9d","target":"9c7b8133-3a06-4555-83f0-48224783a6cc","type":"node"},{"source":"086d8ab8-16a8-40fd-9489-2dbdbbca5472","target":"9c7b8133-3a06-4555-83f0-48224783a6cc","type":"node"},{"id":"93e01026-a3d4-419d-a53a-e029ddd45dd1","label":"Crawl Budget","type":"page"},{"source":"25b6cdb7-ec5b-49f7-999c-0dc06ab799a7","target":"93e01026-a3d4-419d-a53a-e029ddd45dd1","type":"node"},{"source":"9cd12535-3e60-4493-bc03-b5ace2e01986","target":"93e01026-a3d4-419d-a53a-e029ddd45dd1","type":"node"},{"id":"8a242f26-c09d-4af4-b04a-442dd057c23d","label":"Má prática de SEO","type":"page"},{"source":"1e19bc30-6d8d-4fe4-bbb5-027f8f6ff349","target":"8a242f26-c09d-4af4-b04a-442dd057c23d","type":"node"},{"source":"9cd12535-3e60-4493-bc03-b5ace2e01986","target":"8a242f26-c09d-4af4-b04a-442dd057c23d","type":"node"},{"id":"a36a9010-0a1a-40f6-94ae-ec4327ee8287","label":"Next Auth","type":"page"},{"source":"608d45e5-ec55-4e42-adac-5beb8bca5388","target":"a36a9010-0a1a-40f6-94ae-ec4327ee8287","type":"node"},{"id":"94c34152-3663-4ed3-b3cb-85fdb345ef5c","label":"Composition Patterns in JSX","type":"page"},{"source":"b1f81d3b-f5b6-496a-89ff-9c97890f0d57","target":"94c34152-3663-4ed3-b3cb-85fdb345ef5c","type":"node"},{"id":"6bc8c851-ed09-4ee5-a3bf-95edd9b2d65d","label":"Recoil","type":"page"},{"source":"b1f81d3b-f5b6-496a-89ff-9c97890f0d57","target":"6bc8c851-ed09-4ee5-a3bf-95edd9b2d65d","type":"node"},{"id":"337de7d9-4f36-4398-9359-f9339d77c693","label":"React Memo","type":"page"},{"source":"b1f81d3b-f5b6-496a-89ff-9c97890f0d57","target":"337de7d9-4f36-4398-9359-f9339d77c693","type":"node"},{"id":"59285db1-b0c3-4e2a-b000-4c46e7d9d76d","label":"Libs para React","type":"page"},{"source":"b1f81d3b-f5b6-496a-89ff-9c97890f0d57","target":"59285db1-b0c3-4e2a-b000-4c46e7d9d76d","type":"node"},{"id":"f5dd21b4-da5a-4dfd-a128-1f1259504334","label":"SEO On Page","type":"page"},{"source":"3a71deb4-e9fb-434c-9918-c17b06271522","target":"f5dd21b4-da5a-4dfd-a128-1f1259504334","type":"node"},{"source":"9cd12535-3e60-4493-bc03-b5ace2e01986","target":"f5dd21b4-da5a-4dfd-a128-1f1259504334","type":"node"},{"id":"b79f17f6-b846-45c8-9dc0-c90f10508908","label":"Next Auth User Data Flow","type":"page"},{"source":"a36a9010-0a1a-40f6-94ae-ec4327ee8287","target":"b79f17f6-b846-45c8-9dc0-c90f10508908","type":"node"},{"id":"597f6b10-c874-4c53-89a2-9c153ed275ae","label":"Husky - for commits!","type":"page"},{"source":"17a98f08-5dc2-4cfd-8e21-45f219634b7d","target":"597f6b10-c874-4c53-89a2-9c153ed275ae","type":"node"},{"source":"086d8ab8-16a8-40fd-9489-2dbdbbca5472","target":"597f6b10-c874-4c53-89a2-9c153ed275ae","type":"node"},{"id":"c08fb625-b850-4427-ad42-ebdc50fa3133","label":"Eslint / Prettier","type":"page"},{"source":"17a98f08-5dc2-4cfd-8e21-45f219634b7d","target":"c08fb625-b850-4427-ad42-ebdc50fa3133","type":"node"},{"source":"086d8ab8-16a8-40fd-9489-2dbdbbca5472","target":"c08fb625-b850-4427-ad42-ebdc50fa3133","type":"node"},{"id":"8519f617-5a4c-4b6d-8cd7-3596872bda1c","label":"Webpack","type":"page"},{"source":"17a98f08-5dc2-4cfd-8e21-45f219634b7d","target":"8519f617-5a4c-4b6d-8cd7-3596872bda1c","type":"node"},{"source":"086d8ab8-16a8-40fd-9489-2dbdbbca5472","target":"8519f617-5a4c-4b6d-8cd7-3596872bda1c","type":"node"},{"id":"093b49ba-7d39-49a7-ba55-6251c23e61c2","label":"NodeJS Back-end","type":"page"},{"source":"17a98f08-5dc2-4cfd-8e21-45f219634b7d","target":"093b49ba-7d39-49a7-ba55-6251c23e61c2","type":"node"},{"source":"086d8ab8-16a8-40fd-9489-2dbdbbca5472","target":"093b49ba-7d39-49a7-ba55-6251c23e61c2","type":"node"},{"id":"c2c9f25c-2a1d-49ce-ba49-87a29e257c9d","label":"Monorepo em JS","type":"page"},{"source":"17a98f08-5dc2-4cfd-8e21-45f219634b7d","target":"c2c9f25c-2a1d-49ce-ba49-87a29e257c9d","type":"node"},{"source":"086d8ab8-16a8-40fd-9489-2dbdbbca5472","target":"c2c9f25c-2a1d-49ce-ba49-87a29e257c9d","type":"node"},{"id":"6e608e5e-59e2-47a9-979c-254febbf3d56","label":"Vantagens e Desvantagens","type":"page"},{"source":"7243447b-48e0-4765-aa76-c28a16088093","target":"6e608e5e-59e2-47a9-979c-254febbf3d56","type":"node"},{"id":"104d90c5-04df-4b96-b532-127a5ee88c99","label":"Javascript Architecture","type":"page"},{"source":"7243447b-48e0-4765-aa76-c28a16088093","target":"104d90c5-04df-4b96-b532-127a5ee88c99","type":"node"},{"id":"e46cdaeb-0da8-4fec-b31e-bba52543658a","label":"Dicas JS / Snippets","type":"page"},{"source":"7243447b-48e0-4765-aa76-c28a16088093","target":"e46cdaeb-0da8-4fec-b31e-bba52543658a","type":"node"},{"id":"c5433785-7cc3-4f19-bdec-6003a85de023","label":"Timers in JS","type":"page"},{"source":"7243447b-48e0-4765-aa76-c28a16088093","target":"c5433785-7cc3-4f19-bdec-6003a85de023","type":"node"},{"id":"87074413-9cda-48df-b775-0961bd1db905","label":"this, call, apply and bind","type":"page"},{"source":"7243447b-48e0-4765-aa76-c28a16088093","target":"87074413-9cda-48df-b775-0961bd1db905","type":"node"},{"id":"1c7911ab-102a-4386-85e8-976f8cb026a9","label":"Snippets","type":"page"},{"source":"7243447b-48e0-4765-aa76-c28a16088093","target":"1c7911ab-102a-4386-85e8-976f8cb026a9","type":"node"},{"id":"b4ae1406-295e-4800-9e7c-89ea0503092a","label":"Meta programação","type":"page"},{"source":"7243447b-48e0-4765-aa76-c28a16088093","target":"b4ae1406-295e-4800-9e7c-89ea0503092a","type":"node"},{"id":"3dc05f91-5b49-4c6f-9a15-602c9e3bfd98","label":"FID - First Input Delay (1)","type":"page"},{"source":"39c0ba75-1f83-4147-b616-871508ff251b","target":"3dc05f91-5b49-4c6f-9a15-602c9e3bfd98","type":"node"},{"source":"ba74f6ff-d3b1-436d-8b35-ae0be6d12b9d","target":"3dc05f91-5b49-4c6f-9a15-602c9e3bfd98","type":"node"},{"id":"6730858e-ea30-44a3-b509-71e9bf799007","label":"FCP - First Contentful Paintt","type":"page"},{"source":"7b11d4eb-7aa9-4389-a139-f92066d413a4","target":"6730858e-ea30-44a3-b509-71e9bf799007","type":"node"},{"source":"ba74f6ff-d3b1-436d-8b35-ae0be6d12b9d","target":"6730858e-ea30-44a3-b509-71e9bf799007","type":"node"},{"id":"77f879cf-9320-415b-83c9-ffbc712128c0","label":"LCP Largest Contentful Paint","type":"page"},{"source":"bc1fb2cf-20b5-4de5-925b-923551fc0fa0","target":"77f879cf-9320-415b-83c9-ffbc712128c0","type":"node"},{"source":"ba74f6ff-d3b1-436d-8b35-ae0be6d12b9d","target":"77f879cf-9320-415b-83c9-ffbc712128c0","type":"node"},{"id":"5ee610b9-5228-4c21-b8d3-6ccf450ae966","label":"Dados Estruturados","type":"page"},{"source":"9266e265-2b63-4688-a8f5-0f7f406d94fc","target":"5ee610b9-5228-4c21-b8d3-6ccf450ae966","type":"node"},{"source":"9cd12535-3e60-4493-bc03-b5ace2e01986","target":"5ee610b9-5228-4c21-b8d3-6ccf450ae966","type":"node"},{"id":"b29306a5-d3d1-4252-ba20-759fbd422e5a","label":"CallStack Javascript","type":"page"},{"source":"104d90c5-04df-4b96-b532-127a5ee88c99","target":"b29306a5-d3d1-4252-ba20-759fbd422e5a","type":"node"},{"id":"1113c8f4-6d35-401b-a707-9d095450a31d","label":"Event Loop in JS","type":"page"},{"source":"104d90c5-04df-4b96-b532-127a5ee88c99","target":"1113c8f4-6d35-401b-a707-9d095450a31d","type":"node"},{"id":"d0362617-79a9-400a-9c5a-6aeb512aca4f","label":"CLS - Cumulative Layout Shift","type":"page"},{"source":"c941cfc0-d365-4845-bf02-93d917523666","target":"d0362617-79a9-400a-9c5a-6aeb512aca4f","type":"node"},{"source":"ba74f6ff-d3b1-436d-8b35-ae0be6d12b9d","target":"d0362617-79a9-400a-9c5a-6aeb512aca4f","type":"node"},{"id":"ed583942-36d9-4660-bf24-e9bf380482cf","label":"Eslint","type":"page"},{"source":"19a87cfd-747e-47d4-a350-9d6472be1ff4","target":"ed583942-36d9-4660-bf24-e9bf380482cf","type":"node"},{"source":"c08fb625-b850-4427-ad42-ebdc50fa3133","target":"ed583942-36d9-4660-bf24-e9bf380482cf","type":"node"},{"id":"5f760f96-5084-4d36-932b-9fad295eff9a","label":"Prettier","type":"page"},{"source":"b029ca7a-df7d-4fd7-8399-4b1a99187ef9","target":"5f760f96-5084-4d36-932b-9fad295eff9a","type":"node"},{"source":"c08fb625-b850-4427-ad42-ebdc50fa3133","target":"5f760f96-5084-4d36-932b-9fad295eff9a","type":"node"}]
+[
+  {
+    "id": "d3df87fd-0612-42d3-8671-a8e6dd615e9c",
+    "label": "Google Search Central - 2023",
+    "type": "page"
+  },
+  {
+    "id": "9cd12535-3e60-4493-bc03-b5ace2e01986",
+    "label": "SEO Optimizations",
+    "type": "page"
+  },
+  {
+    "source": "d0d18ece-8d6d-469b-a1f8-ed28508f6809",
+    "target": "9cd12535-3e60-4493-bc03-b5ace2e01986",
+    "type": "node"
+  },
+  {
+    "source": "b7744720-2cfc-4742-9c16-57c944078c34",
+    "target": "9cd12535-3e60-4493-bc03-b5ace2e01986",
+    "type": "node"
+  },
+  {
+    "id": "eeb786b5-6469-42d5-ac6f-fdc41d09000a",
+    "label": "Web Performance",
+    "type": "page"
+  },
+  {
+    "source": "30ea9115-0150-463a-8160-6c9e8ec3a548",
+    "target": "eeb786b5-6469-42d5-ac6f-fdc41d09000a",
+    "type": "node"
+  },
+  {
+    "source": "b7744720-2cfc-4742-9c16-57c944078c34",
+    "target": "eeb786b5-6469-42d5-ac6f-fdc41d09000a",
+    "type": "node"
+  },
+  {
+    "id": "f8ccc03b-44f9-4483-891d-6d4782434309",
+    "label": "Métricas Digitais",
+    "type": "page"
+  },
+  {
+    "source": "c3170ae5-8964-4897-a139-78f1129211ef",
+    "target": "f8ccc03b-44f9-4483-891d-6d4782434309",
+    "type": "node"
+  },
+  {
+    "source": "b7744720-2cfc-4742-9c16-57c944078c34",
+    "target": "f8ccc03b-44f9-4483-891d-6d4782434309",
+    "type": "node"
+  },
+  {
+    "id": "f7d1dd97-9d93-4653-9bfc-71dece77e3fa",
+    "label": "Google Ranking Factors",
+    "type": "page"
+  },
+  {
+    "source": "3b065527-b5c2-45c0-9a1d-fbd5d734872c",
+    "target": "f7d1dd97-9d93-4653-9bfc-71dece77e3fa",
+    "type": "node"
+  },
+  {
+    "source": "b7744720-2cfc-4742-9c16-57c944078c34",
+    "target": "f7d1dd97-9d93-4653-9bfc-71dece77e3fa",
+    "type": "node"
+  },
+  {
+    "id": "1070d12a-5695-472e-b938-e47cf45c87a5",
+    "label": "Checklist de SEO",
+    "type": "page"
+  },
+  {
+    "source": "9cd12535-3e60-4493-bc03-b5ace2e01986",
+    "target": "1070d12a-5695-472e-b938-e47cf45c87a5",
+    "type": "node"
+  },
+  {
+    "id": "93e01026-a3d4-419d-a53a-e029ddd45dd1",
+    "label": "Crawl Budget",
+    "type": "page"
+  },
+  {
+    "source": "25b6cdb7-ec5b-49f7-999c-0dc06ab799a7",
+    "target": "93e01026-a3d4-419d-a53a-e029ddd45dd1",
+    "type": "node"
+  },
+  {
+    "source": "9cd12535-3e60-4493-bc03-b5ace2e01986",
+    "target": "93e01026-a3d4-419d-a53a-e029ddd45dd1",
+    "type": "node"
+  },
+  {
+    "id": "bc93eb19-a673-46c5-8e97-266924cd263e",
+    "label": "Ferramentas de SEO",
+    "type": "page"
+  },
+  {
+    "source": "d6a67dca-07c4-4033-b350-00cd5a8eb16c",
+    "target": "bc93eb19-a673-46c5-8e97-266924cd263e",
+    "type": "node"
+  },
+  {
+    "source": "9cd12535-3e60-4493-bc03-b5ace2e01986",
+    "target": "bc93eb19-a673-46c5-8e97-266924cd263e",
+    "type": "node"
+  },
+  {
+    "id": "5ee610b9-5228-4c21-b8d3-6ccf450ae966",
+    "label": "Dados Estruturados",
+    "type": "page"
+  },
+  {
+    "source": "9266e265-2b63-4688-a8f5-0f7f406d94fc",
+    "target": "5ee610b9-5228-4c21-b8d3-6ccf450ae966",
+    "type": "node"
+  },
+  {
+    "source": "9cd12535-3e60-4493-bc03-b5ace2e01986",
+    "target": "5ee610b9-5228-4c21-b8d3-6ccf450ae966",
+    "type": "node"
+  },
+  {
+    "id": "ba74f6ff-d3b1-436d-8b35-ae0be6d12b9d",
+    "label": "Core Web Vitals",
+    "type": "page"
+  },
+  {
+    "source": "16c6a078-934e-4efd-9f18-34c298a1a0c8",
+    "target": "ba74f6ff-d3b1-436d-8b35-ae0be6d12b9d",
+    "type": "node"
+  },
+  {
+    "source": "9cd12535-3e60-4493-bc03-b5ace2e01986",
+    "target": "ba74f6ff-d3b1-436d-8b35-ae0be6d12b9d",
+    "type": "node"
+  },
+  {
+    "id": "8a242f26-c09d-4af4-b04a-442dd057c23d",
+    "label": "Má prática de SEO",
+    "type": "page"
+  },
+  {
+    "source": "1e19bc30-6d8d-4fe4-bbb5-027f8f6ff349",
+    "target": "8a242f26-c09d-4af4-b04a-442dd057c23d",
+    "type": "node"
+  },
+  {
+    "source": "9cd12535-3e60-4493-bc03-b5ace2e01986",
+    "target": "8a242f26-c09d-4af4-b04a-442dd057c23d",
+    "type": "node"
+  },
+  {
+    "id": "f5dd21b4-da5a-4dfd-a128-1f1259504334",
+    "label": "SEO On Page",
+    "type": "page"
+  },
+  {
+    "source": "3a71deb4-e9fb-434c-9918-c17b06271522",
+    "target": "f5dd21b4-da5a-4dfd-a128-1f1259504334",
+    "type": "node"
+  },
+  {
+    "source": "9cd12535-3e60-4493-bc03-b5ace2e01986",
+    "target": "f5dd21b4-da5a-4dfd-a128-1f1259504334",
+    "type": "node"
+  },
+  {
+    "id": "6730858e-ea30-44a3-b509-71e9bf799007",
+    "label": "FCP - First Contentful Paintt",
+    "type": "page"
+  },
+  {
+    "source": "7b11d4eb-7aa9-4389-a139-f92066d413a4",
+    "target": "6730858e-ea30-44a3-b509-71e9bf799007",
+    "type": "node"
+  },
+  {
+    "source": "ba74f6ff-d3b1-436d-8b35-ae0be6d12b9d",
+    "target": "6730858e-ea30-44a3-b509-71e9bf799007",
+    "type": "node"
+  },
+  {
+    "id": "d0362617-79a9-400a-9c5a-6aeb512aca4f",
+    "label": "CLS - Cumulative Layout Shift",
+    "type": "page"
+  },
+  {
+    "source": "c941cfc0-d365-4845-bf02-93d917523666",
+    "target": "d0362617-79a9-400a-9c5a-6aeb512aca4f",
+    "type": "node"
+  },
+  {
+    "source": "ba74f6ff-d3b1-436d-8b35-ae0be6d12b9d",
+    "target": "d0362617-79a9-400a-9c5a-6aeb512aca4f",
+    "type": "node"
+  },
+  {
+    "id": "3dc05f91-5b49-4c6f-9a15-602c9e3bfd98",
+    "label": "FID - First Input Delay (1)",
+    "type": "page"
+  },
+  {
+    "source": "39c0ba75-1f83-4147-b616-871508ff251b",
+    "target": "3dc05f91-5b49-4c6f-9a15-602c9e3bfd98",
+    "type": "node"
+  },
+  {
+    "source": "ba74f6ff-d3b1-436d-8b35-ae0be6d12b9d",
+    "target": "3dc05f91-5b49-4c6f-9a15-602c9e3bfd98",
+    "type": "node"
+  },
+  {
+    "id": "77f879cf-9320-415b-83c9-ffbc712128c0",
+    "label": "LCP Largest Contentful Paint",
+    "type": "page"
+  },
+  {
+    "source": "bc1fb2cf-20b5-4de5-925b-923551fc0fa0",
+    "target": "77f879cf-9320-415b-83c9-ffbc712128c0",
+    "type": "node"
+  },
+  {
+    "source": "ba74f6ff-d3b1-436d-8b35-ae0be6d12b9d",
+    "target": "77f879cf-9320-415b-83c9-ffbc712128c0",
+    "type": "node"
+  }
+]

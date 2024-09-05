@@ -15,7 +15,6 @@ export const GraphContextProvider = ({
   children: React.ReactNode;
 }) => {
   const [getNodes, setNodes] = useState<{ nodes: Node[] }>({ nodes: [] });
-  console.log("ctx", getNodes);
   return (
     <GraphContext.Provider value={{ getNodes, setNodes }}>
       {children}
@@ -23,8 +22,7 @@ export const GraphContextProvider = ({
   );
 };
 
-
-export const useGraphContextData = () =>{
-  const {getNodes, setNodes} =  useContext(GraphContext);
-  return {getNodes, setNodes};
-}
+export const useGraphContextData = () => {
+  const { getNodes, setNodes } = useContext(GraphContext);
+  return { getNodes, setNodes };
+};

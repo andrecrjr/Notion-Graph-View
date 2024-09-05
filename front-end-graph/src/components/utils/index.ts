@@ -7,4 +7,8 @@ export const saveStorage = {
     const data = localStorage.getItem(key);
     return data ? JSON.parse(data) : null;
   },
+  delete: (key:string)=>{
+    localStorage.removeItem(key)
+    return true;
+  }
 };

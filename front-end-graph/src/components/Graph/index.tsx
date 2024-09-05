@@ -2,13 +2,14 @@
 import React, { useEffect, useRef } from "react";
 import { useGraph } from "../hooks/useGraph";
 import { useGraphContextData } from "./GraphContext";
-import LoadingPlaceholder from "./Loading";
+import { useFetchGraphData } from "../hooks/useFetchGraphData";
 import { useParams, useRouter } from "next/navigation";
 
+import LoadingPlaceholder from "./Loading";
 import Sidebar from "../Sidebar";
-import { useFetchGraphData } from "../hooks/useFetchGraphData";
 
 export const GraphComponent: React.FC = () => {
+  document.body.style.overflow = "hidden";
   const { id: pageId } = useParams();
   const pageUID = pageId as string;
   const { setNodes } = useGraphContextData();
@@ -33,18 +34,6 @@ export const GraphComponent: React.FC = () => {
     <div className="graph overflow-hidden max-w-screen">
       {loading && <LoadingPlaceholder />}
       <Sidebar />
-      {/* <button
-        onClick={() => !!graphData && saveNodePositions(graphData, pageUID)}
-        className="border-none bg-slate-500 border-r-2 fixed px-3"
-      >
-        Salvar posição
-      </button>
-      <button
-        onClick={() => clearNodePositions(pageUID)}
-        className="border-none bg-red-500 border-r-2 fixed right-0 px-3"
-      >
-        Limpar posições
-      </button> */}
       <svg ref={svgRef} className="dark:bg-black"></svg>
     </div>
   );
