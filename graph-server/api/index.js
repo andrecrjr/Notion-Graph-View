@@ -15,7 +15,23 @@ const __dirname = path.resolve(path.dirname(__filename), ".."); // get the name 
 const app = express();
 const PORT = process.env.PORT || 3001;
 app.use(express.json());
-app.use(cors())
+
+const allowedOrigins = [
+  'localhost',
+  'notion-graph-mode.'
+];
+
+app.use(cors({
+  origin: function (origin, callback) {
+    // Permite requests sem origem (como mobile apps ou curl requests)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.includes(origin) === -1) {
+      const msg = 'A política de CORS não permite acesso deste domínio.';
+      return callback(new Error(msg), false);
+    }
+    return callback(null, true);
+  }
+}));
 
 const API_URL = process.env.API_URL;
 
@@ -32,7 +48,8 @@ app.get('/blocks/:blockId', async (req, res) => {
     const AUTH = req.headers?.authorization
     const notionAPI = new NotionAPI(API_URL, AUTH);
     const elementProcessor = new ElementProcessor();
-
+    const firstParent = await notionAPI.fetchBlockChildren(blockId, false, false);
+    elementProcessor.processParent(firstParent)
     const elements = await fetchBlockChildrenRecursively(blockId, notionAPI, elementProcessor);
     res.json(elements);
   } catch (error) {

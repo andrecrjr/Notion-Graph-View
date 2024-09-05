@@ -30,9 +30,15 @@ class ElementProcessor {
     return child.has_children ? child.id : null;
   }
 
+  processParent(child){
+    this.processChild(child, null)
+  }
+
   addPage(id, label) {
+    const isFirstParent = !this.elements.some(e => e.type === 'page');
     if (!this.elements.some(e => e.id === id && e.type === 'page')) {
-      this.elements.push({ id, label, type: 'page' });
+      this.elements.push({ id, label, type: 'page', firstParent:isFirstParent });
+      this.firstParent=false;
     }
   }
 

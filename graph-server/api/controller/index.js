@@ -8,9 +8,9 @@ class NotionAPI {
     this.apiKey = apiKey;
   }
 
-  async fetchBlockChildren(blockId, nextCursor = null) {
+  async fetchBlockChildren(blockId, nextCursor = null, children=true) {
     try {
-      const url = `${this.apiUrl}/blocks/${blockId}/children?page_size=100${nextCursor ? `&start_cursor=${nextCursor}` : ''}`;
+      const url = `${this.apiUrl}/blocks/${blockId}/${children ? "children?page_size=100" : "?"}${nextCursor ? `&start_cursor=${nextCursor}` : ''}`;
       const response = await fetch(url, {
         method: 'GET',
         headers: this.getHeaders(),
@@ -59,6 +59,7 @@ class NotionAPI {
     let nextCursor = null;
   
     while (hasMore) {
+
       const data = await notionAPI.fetchBlockChildren(blockId, nextCursor);
       nextCursor = data.next_cursor;
       hasMore = data.has_more;
