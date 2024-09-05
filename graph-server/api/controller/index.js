@@ -27,7 +27,7 @@ class NotionAPI {
     }
   }
 
-  async fetchSearch(secret, query){
+  async fetchSearch(query){
     try {
       let options = {
         method: 'POST',

@@ -2,8 +2,10 @@
 import React, { useCallback } from "react";
 import { saveNodePositions } from "../utils/graph";
 import * as d3 from "d3";
+import { useGraphContextData } from "../Graph/GraphContext";
 
 export const useGraph = () => {
+  const { setNodes } = useGraphContextData();
   const LOCAL_SETTINGS = {
     MAX_GRAPH_WIDTH: 5000,
     MAX_GRAPH_HEIGHT: 5000,
@@ -34,9 +36,9 @@ export const useGraph = () => {
           d3
             .forceLink<Node, Link>(data.links)
             .id((d) => d.id)
-            .distance(data.nodes.length),
+            .distance(data.nodes.length / 2),
         )
-        .force("charge", d3.forceManyBody().strength(-10))
+        .force("charge", d3.forceManyBody().strength(-data.nodes.length))
         .force(
           "center",
           d3.forceCenter(
@@ -44,7 +46,7 @@ export const useGraph = () => {
             LOCAL_SETTINGS.MAX_GRAPH_HEIGHT / 3,
           ),
         )
-        .force("collide", d3.forceCollide(65));
+        .force("collide", d3.forceCollide(70));
 
       const link = container
         .append("g")
@@ -69,7 +71,7 @@ export const useGraph = () => {
         .append("circle")
         .attr(
           "class",
-          "node fill-blue-500 dark:fill-blue-300 hover:fill-blue-700 dark:hover:fill-blue-500 cursor-pointer",
+          "node fill-blue-600 dark:fill-blue-300 hover:fill-blue-700 dark:hover:fill-blue-500 cursor-pointer",
         )
         .attr(
           "r",
@@ -95,7 +97,7 @@ export const useGraph = () => {
         .data(data.nodes)
         .enter()
         .append("text")
-        .attr("class", "label fill-gray-400 dark:fill-yellow-300")
+        .attr("class", "label fill-gray-600 dark:fill-yellow-300")
         .attr("text-anchor", "middle")
         .attr(
           "dy",
@@ -206,7 +208,7 @@ export const useGraph = () => {
         d.fy = event.y;
         // Save node positions in localStorage
         // saveNodePositions(data, pageUID)
-        simulation.alpha(0).restart();
+        setNodes(data);
       }
 
       return () => {

@@ -1,3 +1,10 @@
+import { saveStorage } from "./";
+
+export const loadNodePositions = (blockId: string) => {
+  const savedPositionsKey = `nodePositions-${blockId}`;
+  return saveStorage.get(savedPositionsKey);
+};
+
 export const fetchAndCacheData = async (pageId: string, token: string) => {
   const localStorageKey = `data-block-${pageId}`;
   const cachedData = localStorage.getItem(localStorageKey);
@@ -19,13 +26,8 @@ export const fetchAndCacheData = async (pageId: string, token: string) => {
   }
 
   const data = await response.json();
-  localStorage.setItem(localStorageKey, JSON.stringify(data));
+  saveStorage.set(localStorageKey, data);
   return data;
-};
-
-export const loadNodePositions = (blockId: string) => {
-  const savedPositionsKey = `nodePositions-${blockId}`;
-  return JSON.parse(localStorage.getItem(savedPositionsKey) || "{}");
 };
 
 export const processGraphData = (data: any, blockId: string) => {
@@ -42,13 +44,13 @@ export const processGraphData = (data: any, blockId: string) => {
     .map((d: any) => ({ source: d.source, target: d.target }));
 
   const savedPositions = loadNodePositions(blockId);
-
-  nodes.forEach((node) => {
-    if (savedPositions[node.id]) {
-      node.fx = savedPositions[node.id].x;
-      node.fy = savedPositions[node.id].y;
-    }
-  });
+  savedPositions &&
+    nodes.forEach((node) => {
+      if (savedPositions[node.id]) {
+        node.fx = savedPositions[node.id].x;
+        node.fy = savedPositions[node.id].y;
+      }
+    });
 
   return { nodes, links };
 };
@@ -62,7 +64,7 @@ export const saveNodePositions = (data: { nodes: Node[] }, pageId: string) => {
     {} as Record<string, { x: number | null; y: number | null }>,
   );
 
-  localStorage.setItem(`nodePositions-${pageId}`, JSON.stringify(positions));
+  saveStorage.set(`nodePositions-${pageId}`, positions);
 };
 
 export const clearNodePositions = (pageId: string) => {

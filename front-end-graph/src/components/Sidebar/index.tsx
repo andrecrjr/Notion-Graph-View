@@ -1,8 +1,16 @@
-'use client'
-import React, { useState } from "react";
+"use client";
+import { Pin, PinOff, Save, Settings, UnplugIcon, X } from "lucide-react";
+import { usePathname } from "next/navigation";
+import React, { useContext, useState } from "react";
+import { saveStorage } from "../utils";
+import { clearNodePositions, saveNodePositions } from "../utils/graph";
+import { GraphContext } from "../Graph/GraphContext";
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { getNodes } = useContext(GraphContext);
+
+  const path = usePathname().replace("/graph/", "");
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
@@ -10,32 +18,51 @@ const Sidebar = () => {
 
   return (
     <div>
-      {/* Botão para abrir o Sidebar */}
       <button
-        className="fixed top-4 left-4 z-50 p-2 bg-blue-500 text-white rounded-full focus:outline-none"
+        className="fixed top-4 left-4 min-w-12 z-50 p-2 flex justify-center bg-blue-500 text-white rounded-full focus:outline-none"
         onClick={toggleSidebar}
       >
-        Menu
+        {isOpen ? <X /> : <Settings />}
       </button>
 
-      {/* Sidebar */}
       <div
         className={`fixed top-0 left-0 h-full w-64 bg-gray-800 text-white transform ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         } transition-transform duration-300 ease-in-out z-40`}
       >
-        <button
-          className="absolute top-4 right-4 text-white"
-          onClick={toggleSidebar}
-        >
-          X
-        </button>
-        <div className="mt-16">
+        <div className="mt-20">
           <ul>
-            <li className="p-4 hover:bg-gray-700">
-              <a href="#home">Home</a>
+            <li className="w-full">
+              <button
+                className="p-4 w-full hover:bg-gray-700 flex"
+                title="You can fix positions to arrange the graphs later"
+                onClick={(e) => {
+                  e.preventDefault();
+                  saveNodePositions(getNodes, path);
+                  window.location.reload();
+                }}
+              >
+                <Pin className="mr-4" /> Pin {getNodes && "current"} Positions
+              </button>
             </li>
-            
+            {saveStorage.get(`nodePositions-${path}`) && (
+              <li className="w-full">
+                <button
+                  className="p-4 w-full hover:bg-gray-700 flex"
+                  title="You can fix positions to arrange the graphs later"
+                  onClick={() => {
+                    clearNodePositions(path);
+                  }}
+                >
+                  <PinOff className="mr-4" /> Reset Pinned Positions
+                </button>
+              </li>
+            )}
+            <li className="w-full mt-auto">
+              <a className="p-4 w-full hover:bg-gray-700 flex" href="/">
+                Back to Home
+              </a>
+            </li>
           </ul>
         </div>
       </div>

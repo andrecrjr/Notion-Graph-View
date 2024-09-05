@@ -49,8 +49,6 @@ export const useFetchGraphData = (pageId: string) => {
   }, [pageId, authData, processGraphDataMemoized]);
 
   useEffect(() => {
-    console.log("user is", status);
-    console.log(authData, !data);
     if (authData && !data) {
       fetchGraphData();
     }
