@@ -16,8 +16,9 @@ export const SearchByUrl = () => {
 
   const clickGoValidation = (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    const sanitizedInput = inputValue.split("?")[0];
     const regex = /[a-f0-9]{32}$/;
-    const match = inputValue.match(regex);
+    const match = sanitizedInput.match(regex);
 
     if (match) {
       const notionId = match[0];
