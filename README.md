@@ -55,7 +55,7 @@ make run-all
 make run-dev
 
 # Install only dependecies
-make install_deps
+make install-all-deps
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the front-end.
