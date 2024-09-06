@@ -1,96 +1,100 @@
-'use client'
-import { useState, useEffect, useRef, KeyboardEvent } from "react"
-import { Search } from "lucide-react"
-import { Input } from "@/components/ui/input"
-import { useSession } from "next-auth/react"
-import { SearchRoot } from "./search"
-import { useRouter } from "next/navigation"
-type ResultSearch = {id:string, name:string};
-const fetchSearchResults = async (query: string, token:string) => {
+"use client";
+import { useState, useEffect, useRef, KeyboardEvent } from "react";
+import { Search } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { useSession } from "next-auth/react";
+import { SearchRoot } from "./search";
+import { useRouter } from "next/navigation";
+type ResultSearch = { id: string; name: string };
+const fetchSearchResults = async (query: string, token: string) => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_API}/search`, {
-    method: 'POST',
-    body:JSON.stringify({query}),
+    method: "POST",
+    body: JSON.stringify({ query }),
     headers: {
-      "Authorization": `Bearer ${token}`,
-      "Content-Type": "application/json"
-    }
-  })
-  const data = await res.json() as SearchRoot
-  const result = data?.results.map(item=>({id:item.id, name: item.properties['title']?.title[0].plain_text})).filter(item=>item.name)
-  console.log(result)
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+  });
+  const data = (await res.json()) as SearchRoot;
+  const result = data?.results
+    .map((item) => ({
+      id: item.id,
+      name: item.properties["title"]?.title[0].plain_text,
+    }))
+    .filter((item) => item.name);
   return result;
-}
-
-
+};
 
 export default function SearchInput() {
-  const {data} = useSession();
-  const router = useRouter()
-  const [inputValue, setInputValue] = useState("")
-  const [results, setResults] = useState<ResultSearch[]>([])
-  const [isLoading, setIsLoading] = useState(false)
-  const [selectedIndex, setSelectedIndex] = useState(-1)
-  const [showResults, setShowResults] = useState(false)
-  const inputRef = useRef<HTMLInputElement>(null)
-  const resultsRef = useRef<HTMLUListElement>(null)
+  const { data } = useSession();
+  const router = useRouter();
+  const [inputValue, setInputValue] = useState("");
+  const [results, setResults] = useState<ResultSearch[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [selectedIndex, setSelectedIndex] = useState(-1);
+  const [showResults, setShowResults] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const resultsRef = useRef<HTMLUListElement>(null);
 
   useEffect(() => {
     const debounceTimer = setTimeout(async () => {
-
       if (inputValue) {
-        setIsLoading(true)
+        setIsLoading(true);
         //@ts-ignore
         // const searchResults = await fetchSearchResults(inputValue, data?.user?.tokens.access_token)
-        setResults(searchResults)
-        setIsLoading(false)
-        setShowResults(true)
+        setResults(searchResults);
+        setIsLoading(false);
+        setShowResults(true);
       } else {
-        setResults([])
-        setShowResults(false)
+        setResults([]);
+        setShowResults(false);
       }
-    }, 300)
+    }, 300);
 
-    return () => clearTimeout(debounceTimer)
-  }, [inputValue, data])
+    return () => clearTimeout(debounceTimer);
+  }, [inputValue, data]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(e.target.value)
-    setSelectedIndex(-1)
-  }
+    setInputValue(e.target.value);
+    setSelectedIndex(-1);
+  };
 
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "ArrowDown") {
-      e.preventDefault()
-      setSelectedIndex(prev => (prev < results.length - 1 ? prev + 1 : prev))
+      e.preventDefault();
+      setSelectedIndex((prev) => (prev < results.length - 1 ? prev + 1 : prev));
     } else if (e.key === "ArrowUp") {
-      e.preventDefault()
-      setSelectedIndex(prev => (prev > 0 ? prev - 1 : -1))
+      e.preventDefault();
+      setSelectedIndex((prev) => (prev > 0 ? prev - 1 : -1));
     } else if (e.key === "Enter" && selectedIndex > -1) {
-      setInputValue(results[selectedIndex].name)
-      setShowResults(false)
+      setInputValue(results[selectedIndex].name);
+      setShowResults(false);
     } else if (e.key === "Escape") {
-      setShowResults(false)
+      setShowResults(false);
     }
-  }
+  };
 
   const handleResultClick = (result: ResultSearch) => {
-    setInputValue(result.name)
-    setShowResults(false)
-    router.push(`/graph/${result.id}`)    
-  }
+    setInputValue(result.name);
+    setShowResults(false);
+    router.push(`/graph/${result.id}`);
+  };
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (resultsRef.current && !resultsRef.current.contains(event.target as Node)) {
-        setShowResults(false)
+      if (
+        resultsRef.current &&
+        !resultsRef.current.contains(event.target as Node)
+      ) {
+        setShowResults(false);
       }
-    }
+    };
 
-    document.addEventListener("mousedown", handleClickOutside)
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside)
-    }
-  }, [])
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
     <div className="max-w-md mx-auto p-4">
@@ -130,5 +134,5 @@ export default function SearchInput() {
         )}
       </div>
     </div>
-  )
+  );
 }

@@ -1,19 +1,21 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import { saveNodePositions } from "../utils/graph";
 import * as d3 from "d3";
 import { useGraphContextData } from "../Graph/GraphContext";
 
 export const useGraph = () => {
   const { setNodes } = useGraphContextData();
+  const [loadedGraph, setLoadGraph] = useState(false);
+
   const LOCAL_SETTINGS = {
     MAX_GRAPH_WIDTH: 5000,
     MAX_GRAPH_HEIGHT: 5000,
     RESPONSE_BREAKPOINT: 600,
     WINDOW_WIDTH: window.innerWidth,
     WINDOW_HEIGHT: window.innerHeight,
-    GRAPH_BALL_SIZE: { sm: 10, lg: 15 },
-    GRAPH_BALL_LABEL_MARGIN: { sm: -35, lg: -45 },
+    GRAPH_BALL_SIZE: { sm: 10, lg: 15, master: 22 },
+    GRAPH_BALL_LABEL_MARGIN: { sm: -35, lg: -45, master: -55 },
   };
 
   const mountGraph = useCallback(
@@ -36,9 +38,10 @@ export const useGraph = () => {
           d3
             .forceLink<Node, Link>(data.links)
             .id((d) => d.id)
-            .distance(data.nodes.length / 2),
+            .distance(280)
+            .strength(2),
         )
-        .force("charge", d3.forceManyBody().strength(-data.nodes.length))
+        .force("charge", d3.forceManyBody().strength(-(data.nodes.length * 4)))
         .force(
           "center",
           d3.forceCenter(
@@ -46,7 +49,7 @@ export const useGraph = () => {
             LOCAL_SETTINGS.MAX_GRAPH_HEIGHT / 3,
           ),
         )
-        .force("collide", d3.forceCollide(70));
+        .force("collide", d3.forceCollide().radius(50)); // Ajuste o raio conforme necessário
 
       const link = container
         .append("g")
@@ -71,16 +74,24 @@ export const useGraph = () => {
         .append("circle")
         .attr(
           "class",
-          "node fill-blue-600 dark:fill-blue-300 hover:fill-blue-700 dark:hover:fill-blue-500 cursor-pointer",
+          `node hover:fill-blue-700 dark:hover:fill-blue-500 cursor-pointer`,
+        )
+        .attr("class", (d) =>
+          d?.firstParent ? "fill-red-600" : "fill-blue-600 dark:fill-blue-300",
         )
         .attr(
           "r",
 
-          LOCAL_SETTINGS.GRAPH_BALL_SIZE[
-            LOCAL_SETTINGS.WINDOW_WIDTH > LOCAL_SETTINGS.RESPONSE_BREAKPOINT
-              ? "sm"
-              : "lg"
-          ],
+          (d: any) => {
+            if (d.firstParent) {
+              return LOCAL_SETTINGS.GRAPH_BALL_SIZE["master"];
+            }
+            return LOCAL_SETTINGS.GRAPH_BALL_SIZE[
+              LOCAL_SETTINGS.WINDOW_WIDTH > LOCAL_SETTINGS.RESPONSE_BREAKPOINT
+                ? "sm"
+                : "lg"
+            ];
+          },
         )
         .call(
           d3
@@ -97,10 +108,11 @@ export const useGraph = () => {
         .data(data.nodes)
         .enter()
         .append("text")
-        .attr("class", "label fill-gray-600 dark:fill-yellow-300")
+        .attr("class", "label fill-gray-700 dark:fill-yellow-300")
         .attr("text-anchor", "middle")
         .attr(
           "dy",
+
           LOCAL_SETTINGS.GRAPH_BALL_SIZE[
             LOCAL_SETTINGS.WINDOW_WIDTH > LOCAL_SETTINGS.RESPONSE_BREAKPOINT
               ? "sm"
@@ -153,7 +165,7 @@ export const useGraph = () => {
 
       simulation.on("end", () => {
         console.log("Simulation ended, saving node positions...");
-        // saveNodePositions(data, pageUID);
+        !loadedGraph && setLoadGraph(true);
       });
 
       const zoomed = (event: d3.D3ZoomEvent<Element, unknown>) => {
@@ -218,5 +230,5 @@ export const useGraph = () => {
     [],
   );
 
-  return mountGraph;
+  return { mountGraph, loadedGraph };
 };

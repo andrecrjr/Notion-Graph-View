@@ -33,7 +33,11 @@ export const fetchAndCacheData = async (pageId: string, token: string) => {
 export const processGraphData = (data: any, blockId: string) => {
   const nodes: Node[] = data
     .filter((d: any) => d.type === "page")
-    .map((d: any) => ({ id: d.id, label: d.label }));
+    .map((d: any) => ({
+      id: d.id,
+      label: d.label,
+      firstParent: d.firstParent,
+    }));
   const links: Link[] = data
     .filter(
       (d: any) =>

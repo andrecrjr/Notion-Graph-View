@@ -20,7 +20,7 @@ export const GraphComponent: React.FC = () => {
   const svgRef = useRef<SVGSVGElement | null>(null);
 
   const { data: graphData, loading, error } = useFetchGraphData(pageUID);
-  const mountGraph = useGraph();
+  const { mountGraph } = useGraph();
 
   useEffect(() => {
     if (graphData) {

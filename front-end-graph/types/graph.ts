@@ -1,6 +1,7 @@
 interface Node extends d3.SimulationNodeDatum {
   id: string;
   label: string;
+  firstParent?: boolean;
 }
 
 interface Link {
