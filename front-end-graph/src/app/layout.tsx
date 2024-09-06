@@ -1,12 +1,11 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Roboto } from "next/font/google";
 
 import "./globals.css";
 import AuthProvider from "@/components/Auth/AuthProvider";
-import { Footer } from "@/components/Footer";
 import { GraphContextProvider } from "@/components/Graph/GraphContext";
 
-const inter = Inter({ subsets: ["latin"] });
+const roboto = Roboto({ subsets: ["latin"], weight:['100','300', '400'] });
 
 export const metadata: Metadata = {
   title: "Notion Graph Mode",
@@ -20,7 +19,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="w-screen">
+      <body className={`w-screen ${roboto.className}`} >
         <main className="h-screen flex flex-col overflow-hidden bg-gray-50 text-gray-900">
           <GraphContextProvider>
             <AuthProvider>{children}</AuthProvider>

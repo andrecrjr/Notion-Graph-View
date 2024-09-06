@@ -44,7 +44,7 @@ export const SearchByUrl = () => {
           className="w-full mx-auto pr-4 py-2 rounded-md border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-shadow duration-200 ease-in-out bg-white dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:placeholder-gray-400"
         />
         <Button
-          className="ml-4 w-2/12 grow pl-4 bg-green-700 hover:bg-green-400"
+          className="ml-4 md:w-2/12 grow pl-4 bg-green-700 hover:bg-green-400"
           onClick={clickGoValidation}
         >
           Graph It!
