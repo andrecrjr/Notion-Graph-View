@@ -9,21 +9,17 @@ import mock from "../mock.json" with {type: "json"};
 
 dotenv.config();
 
-const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
-const __dirname = path.resolve(path.dirname(__filename), ".."); // get the name of the directory
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.resolve(path.dirname(__filename), "..");
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 app.use(express.json());
 
-const allowedOrigins = [
-  'localhost',
-  'notion-graph-mode.'
-];
+const allowedOrigins = process.env.ALLOWED_ORIGINS.split(",");
 
 app.use(cors({
   origin: function (origin, callback) {
-    // Permite requests sem origem (como mobile apps ou curl requests)
     if (!origin) return callback(null, true);
     if (allowedOrigins.includes(origin) === -1) {
       const msg = 'A política de CORS não permite acesso deste domínio.';
