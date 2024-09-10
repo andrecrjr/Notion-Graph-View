@@ -1,79 +1,28 @@
 import dotenv from 'dotenv';
+import { NotionAPI } from './services/notion.js';
 
 dotenv.config();
+  
+async function fetchBlockChildrenRecursively(blockId, notionAPI, elementProcessor, parentId = null) {
+  let hasMore = true;
+  let nextCursor = null;
 
-class NotionAPI {
-  constructor(apiUrl, apiKey) {
-    this.apiUrl = apiUrl || process.env.API_URL;
-    this.apiKey = apiKey;
-  }
-
-  async fetchBlockChildren(blockId, nextCursor = null, children=true) {
-    try {
-      const url = `${this.apiUrl}/blocks/${blockId}/${children ? "children?page_size=100" : "?"}${nextCursor ? `&start_cursor=${nextCursor}` : ''}`;
-      const response = await fetch(url, {
-        method: 'GET',
-        headers: this.getHeaders(),
-      });
-
-      if (!response.ok) {
-        throw new Error(`Failed to fetch children for block ${blockId}: ${response.statusText}`);
+  while (hasMore) {
+    const data = await notionAPI.fetchBlockChildren(blockId, nextCursor);
+    nextCursor = data.next_cursor;
+    hasMore = data.has_more;
+    const childPromises = data.results.map(async (child) => {
+      const childId = elementProcessor.processChild(child, parentId);
+      if (childId) {
+        return await fetchBlockChildrenRecursively(childId, notionAPI, elementProcessor, childId);
       }
+    });
 
-      return response.json();
-    } catch (error) {
-      console.error('Error accessing the Notion API:', error);
-      throw new Error(`Error accessing the Notion API: ${error.message}`);
-    }
+    await Promise.all(childPromises);
   }
 
-  async fetchSearch(query){
-    try {
-      let options = {
-        method: 'POST',
-        headers: {
-            ...this.getHeaders(),
-        },
-        body: `{"query":"${query}","filter":{"value":"page","property":"object"},"sort":{"direction":"ascending","timestamp":"last_edited_time"}}`
-      };
-      const res = await fetch(`${this.apiUrl}/search`, options)
-      const data = await res.json()
-      return data;
-    } catch (error) {
-      console.log(error);
-      throw new Error("Error to find pages in query")
-    }
-  }
-
-  getHeaders() {
-    return {
-      'Authorization': `${this.apiKey}`,
-      'Notion-Version': '2022-06-28',
-      'Content-Type': 'application/json',
-    };
-  }
+  return elementProcessor.getElements();
 }
-  
-  async function fetchBlockChildrenRecursively(blockId, notionAPI, elementProcessor, parentId = null) {
-    let hasMore = true;
-    let nextCursor = null;
-  
-    while (hasMore) {
-      const data = await notionAPI.fetchBlockChildren(blockId, nextCursor);
-      nextCursor = data.next_cursor;
-      hasMore = data.has_more;
-      const childPromises = data.results.map(async (child) => {
-        const childId = elementProcessor.processChild(child, parentId);
-        if (childId) {
-          return await fetchBlockChildrenRecursively(childId, notionAPI, elementProcessor, childId);
-        }
-      });
-  
-      await Promise.all(childPromises);
-    }
-  
-    return elementProcessor.getElements();
-  }
 
 
 export {NotionAPI, fetchBlockChildrenRecursively}
