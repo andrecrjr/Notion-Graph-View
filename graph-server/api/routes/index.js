@@ -27,7 +27,7 @@ router.get('/', function(req, res) {
   res.sendFile(path.join(__dirname, '/index.html'));
 });
 
-router.get('/blocks/:blockId', async (req, res) => {
+router.get('/blocks/:blockId', authMiddleware, async (req, res) => {
   const { blockId } = req.params;
   try {
     const elementProcessor = new ElementProcessor();
