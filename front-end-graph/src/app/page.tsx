@@ -6,6 +6,7 @@ import { SearchByUrl } from "@/components/SearchInput/SearchByUrl";
 import { Button } from "@/components/ui/button";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import Link from "next/link";
+import SearchInput from "@/components/SearchInput";
 
 export default async function Home() {
   const data = await auth();
@@ -26,7 +27,7 @@ export default async function Home() {
         <section className="flex flex-col mb-4 items-center justify-center">
           {!!data ? (
             <>
-              <SearchByUrl />
+              <SearchInput />
               <AuthButton />
             </>
           ) : (

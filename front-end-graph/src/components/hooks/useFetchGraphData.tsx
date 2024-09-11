@@ -23,10 +23,9 @@ export const useFetchGraphData = (pageId: string) => {
       setError(null);
       let fetchedData;
 
-      //@ts-expect-error
       if (authData?.user?.tokens.access_token) {
         fetchedData = await fetchAndCacheData(
-          pageId, //@ts-expect-error
+          pageId,
           authData.user.tokens.access_token,
         );
       }

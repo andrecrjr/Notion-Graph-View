@@ -19,9 +19,12 @@ const fetchSearchResults = async (query: string, token: string) => {
   const result = data?.results
     .map((item) => ({
       id: item.id,
-      name: item.properties["title"]?.title[0].plain_text,
+      name:
+        item.properties["title"]?.title[0].plain_text ||
+        item.properties["Name"]?.title[0].plain_text,
     }))
     .filter((item) => item.name);
+  console.log(data);
   return result;
 };
 
@@ -40,8 +43,10 @@ export default function SearchInput() {
     const debounceTimer = setTimeout(async () => {
       if (inputValue) {
         setIsLoading(true);
-        //@ts-ignore
-        // const searchResults = await fetchSearchResults(inputValue, data?.user?.tokens.access_token)
+        const searchResults = await fetchSearchResults(
+          inputValue,
+          data?.user?.tokens.access_token || "",
+        );
         setResults(searchResults);
         setIsLoading(false);
         setShowResults(true);
