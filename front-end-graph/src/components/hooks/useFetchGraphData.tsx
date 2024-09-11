@@ -23,16 +23,13 @@ export const useFetchGraphData = (pageId: string) => {
       setError(null);
       let fetchedData;
 
-      if (pageId === "mock") {
-        fetchedData = dataMock;
-        //@ts-expect-error
-      } else if (authData?.user?.tokens.access_token) {
+      //@ts-expect-error
+      if (authData?.user?.tokens.access_token) {
         fetchedData = await fetchAndCacheData(
           pageId, //@ts-expect-error
           authData.user.tokens.access_token,
         );
       }
-
       if (fetchedData) {
         const processedGraphData = processGraphDataMemoized(fetchedData);
         setData(processedGraphData);
@@ -51,6 +48,10 @@ export const useFetchGraphData = (pageId: string) => {
   useEffect(() => {
     if (authData && !data) {
       fetchGraphData();
+    }
+    if (pageId === "mock" && !data) {
+      const data = processGraphData(dataMock, "mock");
+      setData(data);
     }
   }, [status, authData, data, fetchGraphData, pageId]);
 
