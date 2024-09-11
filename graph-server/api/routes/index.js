@@ -36,8 +36,7 @@ router.get('/blocks/:blockId', authMiddleware, async (req, res) => {
     const elements = await fetchBlockChildrenRecursively(blockId, req.notionAPI, elementProcessor, firstParent.id);
     res.json(elements);
   } catch (error) {
-    console.error('Erro ao buscar filhos do bloco:', error);
-    res.status(404).json({ error: 'Erro ao buscar filhos do bloco' });
+    res.status(404).json({ error: `Erro ao buscar filhos do bloco: ${error.message}` });
   }
 });
 
