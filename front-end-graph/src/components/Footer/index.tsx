@@ -3,14 +3,12 @@ import { IS_DEVELOPMENT } from "../utils";
 
 type Props = {};
 
-export const Footer = (props: Props) => {
+export const GeneralFooter = (props: Props) => {
   return (
     <footer className="mt-auto mb-12 text-center ">
       {IS_DEVELOPMENT && (
         <p className="text-center text-sm w-auto mb-2">
-          You are using <strong>localhost/development env</strong>, replace in
-          your environment: NEXT_INTERNAL_NOTION_SECRET=NOTION_INTERNAL_KEY to
-          get Notion Working
+          You are using <strong>localhost/development env</strong>
         </p>
       )}
       <p className="w-8/12 mx-auto text-xs">

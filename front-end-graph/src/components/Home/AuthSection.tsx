@@ -2,12 +2,11 @@ import { Session } from "next-auth";
 import AuthButton from "../Buttons";
 import { KofiDonate } from "../Donate";
 import { SearchByUrl } from "../SearchInput/SearchByUrl";
-import { IS_DEVELOPMENT } from "../utils";
 
 export function AuthSection({ data }: { data: Session | null }) {
   return (
     <section className="flex flex-col mb-4 items-center justify-center">
-      {!!data || IS_DEVELOPMENT ? (
+      {!!data ? (
         <>
           <SearchByUrl />
           <AuthButton />

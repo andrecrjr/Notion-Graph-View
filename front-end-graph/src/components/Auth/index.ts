@@ -1,6 +1,5 @@
 import Notion from "@auth/core/providers/notion";
 import NextAuth from "next-auth";
-import { fetchAllNotionPages } from "../service/Notion";
 
 export const { auth, handlers, signIn, signOut } = NextAuth({
   providers: [
@@ -30,4 +29,6 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
     strategy: "jwt",
   },
   debug: process.env.NODE_ENV === "development",
+
+  
 });

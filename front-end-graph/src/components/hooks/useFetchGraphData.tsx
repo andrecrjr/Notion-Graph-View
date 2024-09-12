@@ -1,8 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import dataMock from "@/components/mock.json";
-import { fetchAndCacheData, processGraphData } from "../utils/graph";
+import { fetchAndSaveCacheData, processGraphData } from "../utils/graph";
 import { useSession } from "next-auth/react";
-import { IS_DEVELOPMENT } from "../utils";
 
 export const useFetchGraphData = (pageId: string) => {
   const { data: authData, status } = useSession();
@@ -22,18 +21,12 @@ export const useFetchGraphData = (pageId: string) => {
     try {
       setLoading(true);
       setError(null);
-      let fetchedData;
-
-      if (authData?.user?.tokens.access_token || IS_DEVELOPMENT) {
-        fetchedData = await fetchAndCacheData(
+      if (authData?.user?.tokens.access_token) {
+        const data = await fetchAndSaveCacheData(
           pageId,
-          authData
-            ? authData?.user?.tokens?.access_token || ""
-            : process.env.NEXT_PUBLIC_INTERNAL_NOTION_SECRET || "",
+          authData?.user?.tokens?.access_token || "",
         );
-      }
-      if (fetchedData) {
-        const processedGraphData = processGraphDataMemoized(fetchedData);
+        const processedGraphData = processGraphDataMemoized(data);
         setData(processedGraphData);
       } else {
         setError("No data returned from API.");
@@ -45,21 +38,17 @@ export const useFetchGraphData = (pageId: string) => {
     } finally {
       setLoading(false);
     }
-  }, [pageId, authData, processGraphDataMemoized]);
+  }, [authData?.user?.tokens.access_token, pageId, processGraphDataMemoized]);
 
   useEffect(() => {
-    if (IS_DEVELOPMENT && !data) {
-      fetchGraphData();
-    }
     if (authData && !data) {
       fetchGraphData();
     }
-
     if (pageId === "mock" && !data) {
       const data = processGraphData(dataMock, "mock");
       setData(data);
     }
-  }, [status, authData, data, fetchGraphData, pageId]);
+  }, [status, authData, data, pageId, fetchGraphData]);
 
   return { data, loading, error };
 };

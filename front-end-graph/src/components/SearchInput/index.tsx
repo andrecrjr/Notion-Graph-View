@@ -5,17 +5,18 @@ import { Input } from "@/components/ui/input";
 import { useSession } from "next-auth/react";
 import { SearchRoot } from "./search";
 import { useRouter } from "next/navigation";
+import { fetchServer } from "../service/Notion";
 type ResultSearch = { id: string; name: string };
 const fetchSearchResults = async (query: string, token: string) => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_API}/search`, {
-    method: "POST",
-    body: JSON.stringify({ query }),
-    headers: {
-      Authorization: `Bearer ${process.env.NODE_ENV === "development" ? process.env.NEXT_PUBLIC_INTERNAL_NOTION_SECRET : token}`,
-      "Content-Type": "application/json",
+  const data = (await fetchServer(
+    `${process.env.NEXT_PUBLIC_SERVER_API}/search`,
+    token,
+    {
+      method: "POST",
+      body: JSON.stringify({ query }),
     },
-  });
-  const data = (await res.json()) as SearchRoot;
+  )) as SearchRoot;
+
   const result = data?.results
     .map((item) => ({
       id: item.id,

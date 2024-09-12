@@ -36,7 +36,6 @@ export const SearchByUrl = () => {
           placeholder="https://www.notion.so/exemplo/Example-46f8v9j8j644d54f4ff9dfd"
           value={inputValue}
           onChange={handleInputChange}
-          pattern="https:\/\/www\.notion\.so\/[A-Za-z0-9-]+-[a-f0-9]{32}"
           title="URL do Notion com ID da página: https://www.notion.so/exemplo/Example-46f8v9j8j644d54f4ff9dfd"
           required
           className="w-full mx-auto pr-4 py-2 rounded-md border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-shadow duration-200 ease-in-out bg-white dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:placeholder-gray-400"
