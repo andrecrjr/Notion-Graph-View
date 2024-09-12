@@ -6,7 +6,8 @@ import { SearchByUrl } from "@/components/SearchInput/SearchByUrl";
 import { Button } from "@/components/ui/button";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import Link from "next/link";
-import SearchInput from "@/components/SearchInput";
+// import SearchInput from "@/components/SearchInput";
+import { IS_DEVELOPMENT } from "@/components/utils";
 
 export default async function Home() {
   const data = await auth();
@@ -25,9 +26,13 @@ export default async function Home() {
           !
         </p>
         <section className="flex flex-col mb-4 items-center justify-center">
-          {!!data ? (
+          {!!data || IS_DEVELOPMENT ? (
             <>
-              <SearchInput />
+              <SearchByUrl />
+              {IS_DEVELOPMENT && (
+                <>{`You are using localhost, replace in your environment:
+              NEXT_INTERNAL_NOTION_SECRET=NOTION_INTERNAL_KEY`}</>
+              )}
               <AuthButton />
             </>
           ) : (

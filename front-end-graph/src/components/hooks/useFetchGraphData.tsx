@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 import dataMock from "@/components/mock.json";
 import { fetchAndCacheData, processGraphData } from "../utils/graph";
 import { useSession } from "next-auth/react";
+import { IS_DEVELOPMENT } from "../utils";
 
 export const useFetchGraphData = (pageId: string) => {
   const { data: authData, status } = useSession();
@@ -23,10 +24,12 @@ export const useFetchGraphData = (pageId: string) => {
       setError(null);
       let fetchedData;
 
-      if (authData?.user?.tokens.access_token) {
+      if (authData?.user?.tokens.access_token || IS_DEVELOPMENT) {
         fetchedData = await fetchAndCacheData(
           pageId,
-          authData.user.tokens.access_token,
+          authData
+            ? authData?.user?.tokens?.access_token || ""
+            : process.env.NEXT_PUBLIC_INTERNAL_NOTION_SECRET || "",
         );
       }
       if (fetchedData) {
@@ -45,9 +48,13 @@ export const useFetchGraphData = (pageId: string) => {
   }, [pageId, authData, processGraphDataMemoized]);
 
   useEffect(() => {
+    if (IS_DEVELOPMENT && !data) {
+      fetchGraphData();
+    }
     if (authData && !data) {
       fetchGraphData();
     }
+
     if (pageId === "mock" && !data) {
       const data = processGraphData(dataMock, "mock");
       setData(data);
