@@ -11,7 +11,7 @@ const fetchSearchResults = async (query: string, token: string) => {
     method: "POST",
     body: JSON.stringify({ query }),
     headers: {
-      Authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${process.env.NODE_ENV === "development" ? process.env.NEXT_PUBLIC_INTERNAL_NOTION_SECRET : token}`,
       "Content-Type": "application/json",
     },
   });
@@ -19,7 +19,9 @@ const fetchSearchResults = async (query: string, token: string) => {
   const result = data?.results
     .map((item) => ({
       id: item.id,
-      name: item.properties["title"]?.title[0].plain_text,
+      name:
+        item.properties["title"]?.title[0].plain_text ||
+        item.properties["Name"]?.title[0].plain_text,
     }))
     .filter((item) => item.name);
   return result;
@@ -40,8 +42,10 @@ export default function SearchInput() {
     const debounceTimer = setTimeout(async () => {
       if (inputValue) {
         setIsLoading(true);
-        //@ts-ignore
-        // const searchResults = await fetchSearchResults(inputValue, data?.user?.tokens.access_token)
+        const searchResults = await fetchSearchResults(
+          inputValue,
+          data?.user?.tokens.access_token || "",
+        );
         setResults(searchResults);
         setIsLoading(false);
         setShowResults(true);
@@ -77,6 +81,7 @@ export default function SearchInput() {
   const handleResultClick = (result: ResultSearch) => {
     setInputValue(result.name);
     setShowResults(false);
+    console.log(result);
     router.push(`/graph/${result.id}`);
   };
 

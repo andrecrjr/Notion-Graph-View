@@ -7,8 +7,10 @@ export const saveStorage = {
     const data = localStorage.getItem(key);
     return data ? JSON.parse(data) : null;
   },
-  delete: (key:string)=>{
-    localStorage.removeItem(key)
+  delete: (key: string) => {
+    localStorage.removeItem(key);
     return true;
-  }
+  },
 };
+
+export const IS_DEVELOPMENT = process.env.NODE_ENV === "development";

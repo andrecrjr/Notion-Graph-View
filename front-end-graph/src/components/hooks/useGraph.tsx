@@ -6,11 +6,10 @@ import { useGraphContextData } from "../Graph/GraphContext";
 
 export const useGraph = () => {
   const { setNodes } = useGraphContextData();
-  const [loadedGraph, setLoadGraph] = useState(false);
 
   const LOCAL_SETTINGS = {
-    MAX_GRAPH_WIDTH: 5000,
-    MAX_GRAPH_HEIGHT: 5000,
+    MAX_GRAPH_WIDTH: 6000,
+    MAX_GRAPH_HEIGHT: 6000,
     RESPONSE_BREAKPOINT: 600,
     WINDOW_WIDTH: window.innerWidth,
     WINDOW_HEIGHT: window.innerHeight,
@@ -165,7 +164,6 @@ export const useGraph = () => {
 
       simulation.on("end", () => {
         console.log("Simulation ended, saving node positions...");
-        !loadedGraph && setLoadGraph(true);
       });
 
       const zoomed = (event: d3.D3ZoomEvent<Element, unknown>) => {
@@ -218,8 +216,6 @@ export const useGraph = () => {
         if (!event.active) simulation.alphaTarget(0);
         d.fx = event.x;
         d.fy = event.y;
-        // Save node positions in localStorage
-        // saveNodePositions(data, pageUID)
         setNodes(data);
       }
 
@@ -230,5 +226,5 @@ export const useGraph = () => {
     [],
   );
 
-  return { mountGraph, loadedGraph };
+  return { mountGraph };
 };
