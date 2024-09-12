@@ -34,7 +34,7 @@ export const GraphComponent: React.FC = () => {
     <div className="graph overflow-hidden max-w-screen">
       {loading && <LoadingPlaceholder />}
       <Sidebar />
-      <svg ref={svgRef} className="dark:bg-black"></svg>
+      <svg ref={svgRef} className="dark:bg-black cursor-move"></svg>
     </div>
   );
 };

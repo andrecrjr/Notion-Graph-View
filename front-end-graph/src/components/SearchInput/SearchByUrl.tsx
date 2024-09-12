@@ -24,21 +24,18 @@ export const SearchByUrl = () => {
       const notionId = match[0];
       router.push(`/graph/${notionId}`);
     } else {
-      alert(
-        "Não achamos sua página do Notion, tente a url de compartilhamento.",
-      );
+      alert("We haven't found your Notion Page, try with a Notion Page Link");
     }
   };
 
   return (
-    <div className="mx-auto md:w-10/12 p-4">
+    <div className="mx-auto w-full p-4">
       <form className="w-full relative flex">
         <Input
           type="text"
-          placeholder="Notion URL Example: https://www.notion.so/exemplo/Example-46f8v9j8j644d54f4ff9dfd"
+          placeholder="https://www.notion.so/exemplo/Example-46f8v9j8j644d54f4ff9dfd"
           value={inputValue}
           onChange={handleInputChange}
-          pattern="https:\/\/www\.notion\.so\/[A-Za-z0-9-]+-[a-f0-9]{32}"
           title="URL do Notion com ID da página: https://www.notion.so/exemplo/Example-46f8v9j8j644d54f4ff9dfd"
           required
           className="w-full mx-auto pr-4 py-2 rounded-md border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-shadow duration-200 ease-in-out bg-white dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:placeholder-gray-400"

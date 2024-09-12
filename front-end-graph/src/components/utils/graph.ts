@@ -1,3 +1,4 @@
+import { fetchServer } from "../service/Notion";
 import { saveStorage } from "./";
 
 export const loadNodePositions = (blockId: string) => {
@@ -5,7 +6,7 @@ export const loadNodePositions = (blockId: string) => {
   return saveStorage.get(savedPositionsKey);
 };
 
-export const fetchAndCacheData = async (pageId: string, token: string) => {
+export const fetchAndSaveCacheData = async (pageId: string, token: string) => {
   const localStorageKey = `data-block-${pageId}`;
   const cachedData = localStorage.getItem(localStorageKey);
 
@@ -13,19 +14,11 @@ export const fetchAndCacheData = async (pageId: string, token: string) => {
     return JSON.parse(cachedData);
   }
 
-  const response = await fetch(
+  const data = await fetchServer(
     `${process.env.NEXT_PUBLIC_SERVER_API}/blocks/${pageId}`,
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    },
+    token,
   );
-  if (!response.ok) {
-    throw new Error("Failed to fetch data");
-  }
 
-  const data = await response.json();
   saveStorage.set(localStorageKey, data);
   return data;
 };
